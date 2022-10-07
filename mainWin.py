@@ -17,7 +17,7 @@ def iconxR(nameIcon):
 
 def options_square():
     #print("expresionado")
-    winMain.withdraw()
+    # winMain.withdraw()
     win = tk.Toplevel(winMain)
     win.geometry('480x400')
     win.configure(background='red')
@@ -71,8 +71,8 @@ winMain.config(menu = menus)
 #frameMenu    = tk.Frame(winMain, height = 20, relief = "raised", borderwidth = 1)
 #frameButtons = tk.Frame(winMain, width  = 30, relief = "raised", borderwidth = 1)
 
-frameMenu       = tk.Frame(winMain)
-frameButtons    = tk.Frame(frameMenu)
+# frameMenu       = tk.Frame(winMain)
+frameButtons    = tk.Frame(winMain)
 
 buttonS = tk.Button(frameButtons, image = iconSquare, command=options_square)
 buttonC = tk.Button(frameButtons, image = iconCircle)
@@ -81,8 +81,8 @@ buttonT = tk.Button(frameButtons, image = iconTriangle)
 buttonS.pack(side=tk.LEFT)
 buttonC.pack(side=tk.LEFT)
 buttonT.pack(side=tk.LEFT)
-frameButtons.pack(side=tk.LEFT)
-frameMenu.pack(side=tk.TOP)
+frameButtons.pack(side=tk.TOP)
+# frameMenu.pack(side=tk.TOP)
 #frameMenu.grid(row = 0, column = 0)
 #frameButtons.grid(row = 1, column = 0)
 
@@ -94,6 +94,6 @@ frameMenu.pack(side=tk.TOP)
 dd = da.drawA(winMain, 1000, 600)
 
 x = [[5,5],[5,6],[7,6],[8,9],[2,5],[2,3],[2,4],[2,3]]
-dd.draw(x, 'red')
+dd.draw(x, 'green')
 
 winMain.mainloop()
