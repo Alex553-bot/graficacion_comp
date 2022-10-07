@@ -1,23 +1,36 @@
-import tkinter
+import tkinter as tk
 
-master=tkinter.Tk()
-master.title("pack() method")
-master.geometry("450x350")
+class EntryPopup(tk.Frame):
+    def __init__(self,out_value:list,parent,*args,**kwargs):
+        self.value = out_value
+        super().__init__(master=parent,*args,**kwargs)
+        self.toplevel = tk.Toplevel(parent)
+        self.entry = tk.Entry(master=self.toplevel)
+        self.entry.pack()
+        tk.Button(text="Quit",master=self.toplevel,command=self.save_and_destroy).pack()
+        self.toplevel.protocol("WM_DELETE_WINDOW",self.save_and_destroy)
+    def save_value(self):
+        self.value.append(self.entry.get())
+    def save_and_destroy(self):
+        self.save_value()
+        self.toplevel.destroy()
 
-fr = tkinter.Frame(master=master)
+##############
 
-button1=tkinter.Button(fr, text="LEFT")
-button1.pack(side=tkinter.LEFT)
+def show_popup() -> str:
+    val = []
+    x = EntryPopup(val,window)
+    x.toplevel.wait_window()
+    return val[-1]
 
-button2=tkinter.Button(fr, text="RIGHT")
-button2.pack(side=tkinter.LEFT)
+def set_label():
+    lab["text"] = show_popup()
 
-button3=tkinter.Button(fr, text="TOP")
-button3.pack(side=tkinter.LEFT)
+##############
 
-button4=tkinter.Button(fr, text="BOTTOM")
-button4.pack(side=tkinter.LEFT)
+window = tk.Tk()
+lab = tk.Label(text="Your text here")
+lab.pack()
+tk.Button(command=set_label,text="Set label text").pack()
 
-fr.pack(side=tkinter.RIGHT)
-
-master.mainloop()
+window.mainloop()

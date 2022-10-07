@@ -3,7 +3,11 @@ from struct import pack
 import tkinter as tk
 from typing_extensions import IntVar
 from PIL import Image, ImageTk
+from sympy import capture
 
+import square_options as isp
+import triangle_options as itp
+import circle_options as crp
 
 import drawArea as da
 
@@ -16,6 +20,7 @@ def iconxR(nameIcon):
 
 
 def options_square():
+<<<<<<< HEAD
     #print("expresionado")
     # winMain.withdraw()
     win = tk.Toplevel(winMain)
@@ -27,8 +32,36 @@ def options_square():
     boton.pack(side=tk.TOP)
 
     pass
+=======
+    capt = []
+    aux = isp.popup_sqo(capt,winMain)
+    aux.top_level.wait_window()
+    if len(capt)!=0:
+        psqr = []
+        p1 = (capt[0], capt[1])
+        psqr.append(p1)
+        psqr.append((p1[0]+capt[2],p1[1]))
+        psqr.append((p1[0]+capt[2], p1[1]+capt[2]))
+        psqr.append((p1[0],p1[1]+capt[2]))
+        points = []
+        dd.draw(points)
+>>>>>>> 80d695817267e278d53a8b334db2a0ebc58a9bc0
 
+def options_triangle():
+    capt = []
+    aux = itp.popup_tro(capt, winMain)
+    aux.top_level.wait_window
+    if len(capt)!=0:
+        points = []
+        dd.draw(points)
 
+def options_circle():
+    capt = []
+    aux = crp.popup_cro(capt, winMain)
+    aux.top_level.wait_window
+    if len(capt)!=0:
+        point = list(())
+        dd.draw(point)
 winMain = tk.Tk()
 
 # winMain.state('zoomed')
@@ -75,8 +108,8 @@ winMain.config(menu = menus)
 frameButtons    = tk.Frame(winMain)
 
 buttonS = tk.Button(frameButtons, image = iconSquare, command=options_square)
-buttonC = tk.Button(frameButtons, image = iconCircle)
-buttonT = tk.Button(frameButtons, image = iconTriangle)
+buttonC = tk.Button(frameButtons, image = iconCircle, command=options_circle)
+buttonT = tk.Button(frameButtons, image = iconTriangle, command=options_triangle)
 
 buttonS.pack(side=tk.LEFT)
 buttonC.pack(side=tk.LEFT)
