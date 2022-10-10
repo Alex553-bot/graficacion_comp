@@ -9,7 +9,6 @@ import square_options as isp
 import triangle_options as itp
 import circle_options as crp
 
-import drawArea as da
 
 def iconxR(nameIcon):
     dir = "icons/{}.png".format(nameIcon)
@@ -112,8 +111,5 @@ frameMenu.pack(side=tk.TOP)
 canv = tk.Canvas(master=winMain,height=400, width=500)
 # aqui realizamos los pasos para poder pintar un objeto
 
-
-x = [[5,5],[5,6],[7,6],[8,9],[2,5],[2,3],[2,4],[2,3]]
-dd.draw(x, 'red')
 
 winMain.mainloop()
