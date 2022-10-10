@@ -9,6 +9,8 @@ import options_screen.square_options as isp
 import options_screen.triangle_options as itp
 import options_screen.circle_options as crp
 
+from Objeto import *
+
 
 def iconxR(nameIcon):
     dir = "icons/{}.png".format(nameIcon)
@@ -16,6 +18,9 @@ def iconxR(nameIcon):
     icon = icon.resize((20,20))
     icon = ImageTk.PhotoImage(icon)
     return icon
+
+
+objetos = [[]]
 
 
 def options_square():
@@ -29,8 +34,7 @@ def options_square():
         psqr.append((p1[0]+capt[2],p1[1]))
         psqr.append((p1[0]+capt[2], p1[1]+capt[2]))
         psqr.append((p1[0],p1[1]+capt[2]))
-        points = []
-        dd.draw(points)
+        
 
 def options_triangle():
     capt = []
@@ -113,3 +117,4 @@ canv = tk.Canvas(master=winMain,height=400, width=500)
 
 
 winMain.mainloop()
+
