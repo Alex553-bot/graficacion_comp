@@ -1,6 +1,8 @@
 from tkinter import *
 from tkinter import messagebox
 
+from sympy import Le
+
 class popup_cro(Frame):
     def __init__(self, out_val:list, master: Tk, *args, **kargs):
         self.out = out_val
@@ -27,6 +29,7 @@ class popup_cro(Frame):
         self.a_in_y.pack(side=LEFT)
         Label(master=self.entt_impo, text='radio:').pack(side=LEFT)
         self.r = Entry(master=self.entt_impo)
+        self.r.pack(side=LEFT)
         self.entt_impo.pack(side=TOP)
 
     def grosor_color_frame(self):
@@ -43,12 +46,18 @@ class popup_cro(Frame):
         self.gro_col.pack(side=TOP)
 
     def segmentado_input(self):
+        self.segmentado_out = False
         self.seg = Frame(master=self.top_level)
         Label(master=self.seg, text='Segmentado').pack(side=LEFT)
+        varr = IntVar()
 
-        self.segmentado = Checkbutton(master=self.seg).pack(side=LEFT)
-        
+        self.segmentado = Checkbutton(master=self.seg,variable=varr, onvalue=1, offvalue=0, command=self.cambiar)
+        self.segmentado.pack(side=LEFT)
         self.seg.pack(side=TOP)
+
+    def cambiar(self):
+        print(self.segmentado_out)
+        self.segmentado_out = not (self.segmentado_out)
 
     def redef(self, selection):
         self.grosor_out = selection
@@ -63,8 +72,8 @@ class popup_cro(Frame):
             self.out.append(int(self.r.get()))
             app = []
             app.append(int(self.grosor_out))
-            app.append(self.color)
-            app.append(self.segmentado.get())
+            app.append(self.color.get())
+            app.append(self.segmentado_out)
             self.out.append(app)
             print(self.out)
             self.destroy()

@@ -1,6 +1,7 @@
 from ctypes import sizeof
 from struct import pack
 import tkinter as tk
+from turtle import width
 from typing_extensions import IntVar
 from PIL import Image, ImageTk
 from sympy import capture
@@ -11,6 +12,8 @@ import options_screen.circle_options as crp
 
 from Objeto import *
 
+from draw_functions.CuadradoLeonel import *
+from draw_functions.circle import *
 
 def iconxR(nameIcon):
     dir = "icons/{}.png".format(nameIcon)
@@ -29,11 +32,24 @@ def options_square():
     aux.top_level.wait_window()
     if len(capt)!=0:
         psqr = []
-        p1 = (capt[0], capt[1])
-        psqr.append(p1)
-        psqr.append((p1[0]+capt[2],p1[1]))
-        psqr.append((p1[0]+capt[2], p1[1]+capt[2]))
-        psqr.append((p1[0],p1[1]+capt[2]))
+        x1, y1 = capt[0], capt[1]
+        x2, y2 = capt[2], capt[3]
+        psqr.append((x1,y1))
+        xc = (x1 + x2)/2    
+        yc = (y1 + y2)/2      
+        xd = (x1 - x2)/2    
+        yd = (y1 - y2)/2      
+
+        x3 = int(xc - yd)  
+        y3 = int(yc + xd);    
+        psqr.append((x3,y3))
+        psqr.append((x2,y2))
+        x4 = int(xc + yd)  
+        y4 = int(yc - xd)
+        psqr.append((x4,y4))    
+        obj = Objeto(x=1, pts_clave=psqr, segm=capt[4][2], gr=capt[4][0], col=capt[4][1])
+        objetos.append(obj)
+        dibujarCuadrado(canv, psqr, obj.grosor, obj.segmentado)
         
 
 def options_triangle():
@@ -49,8 +65,11 @@ def options_circle():
     aux = crp.popup_cro(capt, winMain)
     aux.top_level.wait_window
     if len(capt)!=0:
-        point = list(())
-        dd.draw(point)
+        xc,yc = capt[0],capt[1]
+        r = capt[2]
+        obj = Objeto(2, [(xc, yc)], capt[4][2], capt[4][0], capt[4][1], r)
+        objetos.append(obj)
+        circle_mid_point(canv, xc, yc, r)
 winMain = tk.Tk()
 
 # winMain.state('zoomed')
@@ -112,9 +131,11 @@ frameMenu.pack(side=tk.TOP)
 #buttonC.grid(row = 1, column = 0, padx = (0,3), pady = (3,3))
 #buttonT.grid(row = 2, column = 0, padx = (0,3), pady = (3,3))
 
-canv = tk.Canvas(master=winMain,height=400, width=500)
+canv = tk.Canvas(master=winMain,height=750, width=1000)
 # aqui realizamos los pasos para poder pintar un objeto
 
+canv.config(background='white')
+canv.pack(side=tk.BOTTOM)
 
 winMain.mainloop()
 

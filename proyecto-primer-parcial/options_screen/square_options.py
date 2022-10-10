@@ -48,12 +48,18 @@ class popup_sqo(Frame):
         self.gro_col.pack(side=TOP)
 
     def segmentado_input(self):
+        self.segmentado_out = False
         self.seg = Frame(master=self.top_level)
         Label(master=self.seg, text='Segmentado').pack(side=LEFT)
+        varr = IntVar()
 
-        self.segmentado = Checkbutton(master=self.seg, onvalue=1, offvalue=0).pack(side=LEFT)
-        
+        self.segmentado = Checkbutton(master=self.seg,variable=varr, onvalue=1, offvalue=0, command=self.cambiar)
+        self.segmentado.pack(side=LEFT)
         self.seg.pack(side=TOP)
+
+    def cambiar(self):
+        print(self.segmentado_out)
+        self.segmentado_out = not (self.segmentado_out)
 
     def redef(self, selection):
         self.grosor_out = selection
@@ -69,8 +75,8 @@ class popup_sqo(Frame):
             self.out.append(int(self.b_in_y.get()))
             app = []
             app.append(int(self.grosor_out))
-            app.append(self.color)
-            app.append(self.segmentado.get())
+            app.append(self.color.get())
+            app.append(self.segmentado_out)
             self.out.append(app)
             print(self.out)
             self.destroy()
@@ -81,3 +87,4 @@ class popup_sqo(Frame):
 
     def mostrarError(self, x:str):
         messagebox.showerror(title='Error de entrada', message=x)
+

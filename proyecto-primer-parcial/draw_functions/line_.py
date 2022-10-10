@@ -1,4 +1,4 @@
-from g_util import *
+from draw_functions.g_util import *
 from math import sqrt
 
 
@@ -65,7 +65,7 @@ def line_dda(canvas, x1, y1, x2, y2, g):
             y += ys
             i += 1
 
-def line_bresenham(canvas, x1, y1, x2, y2, g):
+def line_bresenham(canvas, x1:int, y1:int, x2:int, y2:int, g:int):
     if x1 > x2:
         x = x2
         y = y2
@@ -89,7 +89,7 @@ def line_bresenham(canvas, x1, y1, x2, y2, g):
             y += 1
 
 
-def create_segmented_line(canvas:Canvas,x, y, x1, y1, g,number_of_seg=15, segm=7):
+def create_segmented_line(canvas:Canvas,x:int, y:int, x1:int, y1:int, g:int,number_of_seg=15, segm=7):
     long = sqrt((x1 - x)**2 + (y1 - y)**2)
 
     seg = long / number_of_seg 
@@ -101,6 +101,6 @@ def create_segmented_line(canvas:Canvas,x, y, x1, y1, g,number_of_seg=15, segm=7
   
     for s in range(number_of_seg): 
 
-        line_bresenham(canvas,_x, _y, ((dist - segm/2)*n_x) + x, ((dist - segm/2)*n_y) + y,g)
+        line_bresenham(canvas,_x, _y, ((dist - segm/2)*n_x) + x, ((dist - segm/2)*n_y) + y, g)
         _x, _y = ((dist + segm/2)*n_x) + x, ((dist + segm/2)*n_y) + y
         dist += seg
