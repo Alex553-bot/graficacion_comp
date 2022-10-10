@@ -5,9 +5,9 @@ from typing_extensions import IntVar
 from PIL import Image, ImageTk
 from sympy import capture
 
-import square_options as isp
-import triangle_options as itp
-import circle_options as crp
+import options_screen.square_options as isp
+import options_screen.triangle_options as itp
+import options_screen.circle_options as crp
 
 
 def iconxR(nameIcon):
