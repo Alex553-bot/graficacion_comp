@@ -1,0 +1,1 @@
+esta carpeta para los guardados, sea en xml o en algun formato grafico(.jpg, .png, etc)
