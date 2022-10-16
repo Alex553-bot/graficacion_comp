@@ -4,6 +4,7 @@ from draw_functions.circle import *
 # from draw_functions.CuadradoLeonel import *
 from draw_functions.polygon import *
 from transformations.transformations import *
+from paint_functions.boundary_fill import *
 
 class View(Frame):
     def __init__(self):
@@ -32,9 +33,8 @@ class View(Frame):
             circle_mid_point(canvas, 505, 290, r, 7)
             r += 20
         """
-
-        puntos = [(50, 50), (100, 50), (100, 100), (50, 100)]
         """
+        puntos = [(50, 50), (100, 50), (100, 100), (50, 100)]
         dibujarCuadrado(canvas, puntos, 1, False)
 
         dibujarCuadrado(canvas, translation(puntos, 100, 100))
@@ -42,19 +42,25 @@ class View(Frame):
         dibujarCuadrado(canvas, rotation_fixed_point(puntos, 75, 75, 45))
 
         dibujarCuadrado(canvas, scale_fixed_point(puntos, 2, 2))
-        """
 
         draw_polygon(canvas, puntos, 1)
         draw_polygon(canvas, translation(puntos, 300, 300), 1)
         draw_polygon(canvas, rotation_fixed_point(puntos, 75, 75, 45), 1)
         draw_polygon(canvas, scale_fixed_point(puntos, 75, 75, 2, 2), 1)
+        """
 
         puntos = [(250, 100), (300, 100), (275, 50)]
 
         draw_polygon(canvas, puntos, 1)
-        draw_polygon(canvas, translation(puntos, 300, 300), 1)
-        draw_polygon(canvas, rotation_fixed_point(puntos, 275, 75, 45), 1)
-        draw_polygon(canvas, scale_fixed_point(puntos, 275, 75, 2, 2), 1)
+
+        boundary_fill_4(canvas, 272, 82, 'red', 'black')
+
+        circle_mid_point(canvas, 200, 200, 50, 1)
+        boundary_fill_4(canvas, 220, 220, 'yellow', 'black')
+
+        puntos = [(50, 50), (100, 50), (100, 100), (50, 100)]
+        draw_polygon(canvas, puntos, 1)
+        boundary_fill_4(canvas, 75, 75, 'red', 'black')
 
         canvas.pack(fill=BOTH, expand=1)
 
