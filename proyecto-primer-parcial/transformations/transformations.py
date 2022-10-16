@@ -25,6 +25,7 @@ def rotation(points, theta):
 def rotation_fixed_point(points, xf, yf, theta):
     return translation(rotation(translation(points, -xf, -yf), theta), xf, yf)
 
+# escalacion
 def basic_scale(x, y, sx, sy):
     return (x * sx, y * sy)
 
@@ -34,5 +35,6 @@ def scale(points, sx, sy):
         points_p.append(basic_scale(x, y, sx, sy))
     return points_p
 
+# escalacion respecto a un punto
 def scale_fixed_point(points, xf, yf, sx, sy):
     return translation(scale(translation(points, -xf, -yf), sx, sy), xf, yf)
