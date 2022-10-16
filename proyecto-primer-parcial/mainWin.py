@@ -54,12 +54,12 @@ def options_triangle():
     capt = []
     aux = itp.popup_tro(capt, winMain)
     aux.top_level.wait_window
-    if len(capt)!=0:
+    if len(capt)>0:
         p1, p2, p3 = (capt[0], capt[1]), (capt[2], capt[3]), (capt[4], capt[5])
         psqr = [p1, p2, p3]
         obj = Objeto(3,psqr, capt[6][2], capt[6][0], capt[6][1])
         objetos.append(obj)
-        dibujarTriangulo(canv, psqr, obj.grosor, obj.segmentado, obj.color)
+        dibujarTriangulo(canv, psqr, g=obj.grosor, segm=obj.segmentado,col= obj.color)
 
 def options_circle():
     capt = []

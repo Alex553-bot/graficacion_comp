@@ -13,32 +13,37 @@ def line_equation_fx(canvas, x1, y1, x2, y2, g, col):
         xf = x2
     dx = x2 - x1
     dy = y2 - y1
-    m = dy / dx
-    b = (x2 * y1 - x1 * y2) / dx
-    while x <= xf:
-        fx = m * x + b
-        y = round(fx)
-        draw_pixel(canvas, x, y, g, col)
-        x += 1
+    if dx!=0:
+        m = dy / dx
+        b = (x2 * y1 - x1 * y2) / dx
+        while x <= xf:
+            fx = m * x + b
+            y = round(fx)
+            draw_pixel(canvas, x, y, g, col)
+            x += 1
 
 def line_equation_fy(canvas, x1, y1, x2, y2, g, col):
+    x, y = x1, y1
     if y1 > y2:
         y = y2
         yf = y1
+        x = x2
     else:
         y = y1
         yf = y2
     dx = x2 - x1
     dy = y2 - y1
-    m = dy / dx
-    b = (x2 * y1 - x1 * y2) / dx
-    while y <= yf:
-        fy = (y - b) / m
-        x = round(fy)
-        draw_pixel(canvas, x, y, g, col)
-        y += 1
 
-def line_dda(canvas, x1, y1, x2, y2, g):
+    if dy!=0:
+        m1 = dx / dy
+        b = y*dx/dy - x
+        while y <= yf:
+            fy = (y *m1 - b) 
+            x = round(fy)
+            draw_pixel(canvas, x, y, g, col)
+            y += 1
+
+def line_dda(canvas, x1, y1, x2, y2, g, col):
     dx = x2 - x1
     dy = y2 - y1
     if x1 > x2:
@@ -54,13 +59,13 @@ def line_dda(canvas, x1, y1, x2, y2, g):
     else:
         steps = abs(dy)
     if steps == 0:
-        draw_pixel(canvas, round(x), round(y), g)
+        draw_pixel(canvas, round(x), round(y), g, col)
     else:
         xs = dx / steps
         ys = dy / steps
         i = 0
         while i <= steps:
-            draw_pixel(canvas, round(x), round(y), g)
+            draw_pixel(canvas, round(x), round(y), g, col)
             x += xs
             y += ys
             i += 1
@@ -189,7 +194,12 @@ def create_segmented_line(canvas:Canvas,x:int, y:int, x1:int, y1:int, g:int,numb
   
     for s in range(number_of_seg): 
 
-        line_equation_fx(canvas,_x, _y, ((dist - segm/2)*n_x) + x, ((dist - segm/2)*n_y) + y, g,col)
-        line_equation_fy(canvas,_x, _y, ((dist - segm/2)*n_x) + x, ((dist - segm/2)*n_y) + y, g,col)
+        create_line_(canvas,_x, _y, ((dist - segm/2)*n_x) + x, ((dist - segm/2)*n_y) + y, g,col)
+        create_line_(canvas,_x, _y, ((dist - segm/2)*n_x) + x, ((dist - segm/2)*n_y) + y, g,col)
         _x, _y = ((dist + segm/2)*n_x) + x, ((dist + segm/2)*n_y) + y
         dist += seg
+
+def create_line_(canvas, x, y, x1, y1, g, col):
+    #(canvas, x, y, x1, y1, g, col)
+    line_equation_fx(canvas, x, y, x1, y1, g, col)
+    line_equation_fy(canvas, x, y, x1, y1, g, col)

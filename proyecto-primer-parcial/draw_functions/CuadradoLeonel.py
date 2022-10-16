@@ -42,14 +42,10 @@ def dibujarCuadrado(canvas, pts:list, g:int, segm:bool, col):
         create_segmented_line(canvas, pts[2][0], pts[2][1], pts[3][0], pts[3][1], g=g, col=col)
         create_segmented_line(canvas, pts[3][0], pts[3][1], pts[0][0], pts[0][1], g=g, col=col)
     else:
-        line_equation_fx(canvas, pts[0][0], pts[0][1], pts[1][0], pts[1][1], g, col)
-        line_equation_fx(canvas, pts[1][0], pts[1][1], pts[2][0], pts[2][1], g, col)
-        line_equation_fx(canvas, pts[2][0], pts[2][1], pts[3][0], pts[3][1], g, col)
-        line_equation_fx(canvas, pts[3][0], pts[3][1], pts[0][0], pts[0][1], g, col)
-        line_equation_fy(canvas, pts[0][0], pts[0][1], pts[1][0], pts[1][1], g, col)
-        line_equation_fy(canvas, pts[1][0], pts[1][1], pts[2][0], pts[2][1], g, col)
-        line_equation_fy(canvas, pts[2][0], pts[2][1], pts[3][0], pts[3][1], g, col)
-        line_equation_fy(canvas, pts[3][0], pts[3][1], pts[0][0], pts[0][1], g, col)
+        create_line_(canvas, pts[0][0], pts[0][1], pts[1][0], pts[1][1], g, col)
+        create_line_(canvas, pts[1][0], pts[1][1], pts[2][0], pts[2][1], g, col)
+        create_line_(canvas, pts[2][0], pts[2][1], pts[3][0], pts[3][1], g, col)
+        create_line_(canvas, pts[3][0], pts[3][1], pts[0][0], pts[0][1], g, col)
 
 
 
@@ -59,9 +55,6 @@ def dibujarTriangulo(canvas:Canvas, pts:list, g:int, segm:bool, col):
         create_segmented_line(canvas, pts[1][0], pts[1][1], pts[2][0], pts[2][1], g=g, col=col)
         create_segmented_line(canvas, pts[2][0], pts[2][1], pts[0][0], pts[0][1], g=g, col=col)
     else:
-        line_equation_fx(canvas, pts[0][0], pts[0][1], pts[1][0], pts[1][1], g, col)
-        line_equation_fx(canvas, pts[1][0], pts[1][1], pts[2][0], pts[2][1], g, col)
-        line_equation_fx(canvas, pts[2][0], pts[2][1], pts[0][0], pts[0][1], g, col)
-        line_equation_fy(canvas, pts[0][0], pts[0][1], pts[1][0], pts[1][1], g, col)
-        line_equation_fy(canvas, pts[1][0], pts[1][1], pts[2][0], pts[2][1], g, col)
-        line_equation_fy(canvas, pts[2][0], pts[2][1], pts[0][0], pts[0][1], g, col)
+        create_line_(canvas, pts[0][0], pts[0][1], pts[1][0], pts[1][1], g, col)
+        create_line_(canvas, pts[1][0], pts[1][1], pts[2][0], pts[2][1], g, col)
+        create_line_(canvas, pts[2][0], pts[2][1], pts[0][0], pts[0][1], g, col)
