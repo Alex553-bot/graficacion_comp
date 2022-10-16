@@ -16,11 +16,11 @@ def circle_polar_coordinates(canvas, xc, yc, r, g):
         draw_symmetrical_points_8o(canvas, xc, yc, x, y, g)
         q += 1 / r
 
-def circle_mid_point(canvas, xc, yc, r, g):
+def circle_mid_point(canvas, xc, yc, r, g, col):
     x = 0
     y = r
     p = 1 - r
-    draw_symmetrical_points_8o(canvas, xc, yc, x, y, g)
+    draw_symmetrical_points_8o(canvas, xc, yc, x, y, g, col)
     while x < y:
         x += 1
         if p < 0:
@@ -28,5 +28,8 @@ def circle_mid_point(canvas, xc, yc, r, g):
         else:
             y -= 1
             p += 2 * (x - y) + 1
-        draw_symmetrical_points_8o(canvas, xc, yc, x, y, g)
+        draw_symmetrical_points_8o(canvas, xc, yc, x, y, g, col)
 
+
+def segmented_circle(canvas, xc, yc, r, g, col):
+    circle_mid_point(canvas, xc, yc, r, g, col)

@@ -1,10 +1,7 @@
 from ctypes import sizeof
 from struct import pack
 import tkinter as tk
-from turtle import width
-from typing_extensions import IntVar
 from PIL import Image, ImageTk
-from sympy import capture
 
 import options_screen.square_options as isp
 import options_screen.triangle_options as itp
@@ -35,10 +32,10 @@ def options_square():
         x1, y1 = capt[0], capt[1]
         x2, y2 = capt[2], capt[3]
         psqr.append((x1,y1))
-        xc = (x1 + x2)/2    
-        yc = (y1 + y2)/2      
-        xd = (x1 - x2)/2    
-        yd = (y1 - y2)/2      
+        xc = (x1 + x2)>>1    
+        yc = (y1 + y2)>>1      
+        xd = (x1 - x2)>>1    
+        yd = (y1 - y2)>>1      
 
         x3 = int(xc - yd)  
         y3 = int(yc + xd);    
@@ -46,10 +43,11 @@ def options_square():
         psqr.append((x2,y2))
         x4 = int(xc + yd)  
         y4 = int(yc - xd)
-        psqr.append((x4,y4))    
+        psqr.append((x4,y4)) 
+        print(psqr)   
         obj = Objeto(x=1, pts_clave=psqr, segm=capt[4][2], gr=capt[4][0], col=capt[4][1])
         objetos.append(obj)
-        dibujarCuadrado(canv, psqr, obj.grosor, obj.segmentado)
+        dibujarCuadrado(canv, psqr, obj.grosor, obj.segmentado, obj.color)
         
 
 def options_triangle():
@@ -57,8 +55,11 @@ def options_triangle():
     aux = itp.popup_tro(capt, winMain)
     aux.top_level.wait_window
     if len(capt)!=0:
-        points = []
-        dd.draw(points)
+        p1, p2, p3 = (capt[0], capt[1]), (capt[2], capt[3]), (capt[4], capt[5])
+        psqr = [p1, p2, p3]
+        obj = Objeto(3,psqr, capt[6][2], capt[6][0], capt[6][1])
+        objetos.append(obj)
+        dibujarTriangulo(canv, psqr, obj.grosor, obj.segmentado, obj.color)
 
 def options_circle():
     capt = []
@@ -69,7 +70,10 @@ def options_circle():
         r = capt[2]
         obj = Objeto(2, [(xc, yc)], capt[4][2], capt[4][0], capt[4][1], r)
         objetos.append(obj)
-        circle_mid_point(canv, xc, yc, r)
+        if (obj.segmentado):
+            segmented_circle(canv,xc, yc, r, g=1, col = obj.color)
+        else:
+            circle_mid_point(canv,xc, yc, r, g=1)
 winMain = tk.Tk()
 
 # winMain.state('zoomed')
@@ -131,11 +135,11 @@ frameMenu.pack(side=tk.TOP)
 #buttonC.grid(row = 1, column = 0, padx = (0,3), pady = (3,3))
 #buttonT.grid(row = 2, column = 0, padx = (0,3), pady = (3,3))
 
-canv = tk.Canvas(master=winMain,height=750, width=1000)
+canv = tk.Canvas(master=winMain)
 # aqui realizamos los pasos para poder pintar un objeto
 
 canv.config(background='white')
-canv.pack(side=tk.BOTTOM)
+canv.pack(expand=True,side=tk.BOTTOM, fill='both')
 
 winMain.mainloop()
 

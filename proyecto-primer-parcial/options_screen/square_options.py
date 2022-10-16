@@ -1,12 +1,13 @@
 from tkinter import *
 from tkinter import messagebox
+from tkinter import colorchooser
+from tkinter.colorchooser import askcolor
 
 class popup_sqo(Frame):
     def __init__(self, out_val:list, master: Tk, *args, **kargs):
         self.out = out_val
         super().__init__(master=master, *args, **kargs)
         self.top_level = Toplevel(master)
-        #incluir botones para entradas, etc.
         
         self.puntos_input()
 
@@ -44,8 +45,13 @@ class popup_sqo(Frame):
         Label(master=self.gro_col, text='color: ').pack(side=LEFT)
         self.color = Entry(master=self.gro_col)
         self.color.pack(side=LEFT)
-        Button(master=self.gro_col, text='cod_col', command=self.destroy).pack(side=RIGHT)
+        Button(master=self.gro_col, text='cod_col', command=self.getColor).pack(side=RIGHT)
         self.gro_col.pack(side=TOP)
+
+    def getColor(self):
+        self.colorr = askcolor()[1]
+        self.color.delete(0, END)
+        self.color.insert(0, self.colorr)
 
     def segmentado_input(self):
         self.segmentado_out = False
@@ -75,7 +81,7 @@ class popup_sqo(Frame):
             self.out.append(int(self.b_in_y.get()))
             app = []
             app.append(int(self.grosor_out))
-            app.append(self.color.get())
+            app.append(self.colorr)
             app.append(self.segmentado_out)
             self.out.append(app)
             print(self.out)

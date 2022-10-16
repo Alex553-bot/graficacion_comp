@@ -1,11 +1,11 @@
-from ast import Pass
-import tkinter as tk
+#from ast import Pass
+#import tkinter as tk
 from tkinter import Canvas
 
 from numpy import can_cast
 from draw_functions.line_ import *
 
-def draw_line_bresenham(x_start, y_start, x_end, y_end, ventanaRaiz, canvas):
+def draw_line_bresenham(canvas,x_start, y_start, x_end, y_end, g, col):
 
     dy = y_end - y_start
     dx = x_end - x_start
@@ -35,33 +35,33 @@ def dibujarLinePendienteCero(x_start, y_start, x_end, y_end, ventanaRaiz, canvas
 
 
 
-def dibujarCuadrado(canvas, pts:list, g:int, segm:bool):
+def dibujarCuadrado(canvas, pts:list, g:int, segm:bool, col):
     if segm:
-        # creamos cuadrado segmentado
-        #print(pts[0])
-        #print(pts)
-        create_segmented_line(canvas, pts[0][0], pts[0][1], pts[1][0], pts[1][1], g)
-        create_segmented_line(canvas, pts[1][0], pts[1][1], pts[2][0], pts[2][1], g)
-        create_segmented_line(canvas, pts[2][0], pts[2][1], pts[3][0], pts[3][1], g)
-        create_segmented_line(canvas, pts[3][0], pts[3][1], pts[0][0], pts[0][1], g)
+        create_segmented_line(canvas=canvas, x =pts[0][0], y=pts[0][1], x1=pts[1][0], y1=pts[1][1], g=g, col=col)
+        create_segmented_line(canvas, pts[1][0], pts[1][1], pts[2][0], pts[2][1], g=g, col=col)
+        create_segmented_line(canvas, pts[2][0], pts[2][1], pts[3][0], pts[3][1], g=g, col=col)
+        create_segmented_line(canvas, pts[3][0], pts[3][1], pts[0][0], pts[0][1], g=g, col=col)
     else:
-        line_bresenham(canvas, pts[0][0], pts[0][1], pts[1][0], pts[1][1], g)
-        line_bresenham(canvas, pts[1][0], pts[1][1], pts[2][0], pts[2][1], g)
-        line_bresenham(canvas, pts[2][0], pts[2][1], pts[3][0], pts[3][1], g)
-        line_bresenham(canvas, pts[3][0], pts[3][1], pts[0][0], pts[0][1], g)
-        pass
-    #canvas = Canvas(raiz)
-    #(canvas,x1, y1, x2, y2,g)
-    #draw_line_bresenham(x1, y1+longitud, x1+longitud, y1+longitud,raiz,canvas)
-    #dibujarLinePendienteCero(x1, y1, x1, y1+longitud,raiz,canvas)
-    #dibujarLinePendienteCero(x1+longitud, y1, x1+longitud, y1 + longitud,raiz, canvas)
+        line_equation_fx(canvas, pts[0][0], pts[0][1], pts[1][0], pts[1][1], g, col)
+        line_equation_fx(canvas, pts[1][0], pts[1][1], pts[2][0], pts[2][1], g, col)
+        line_equation_fx(canvas, pts[2][0], pts[2][1], pts[3][0], pts[3][1], g, col)
+        line_equation_fx(canvas, pts[3][0], pts[3][1], pts[0][0], pts[0][1], g, col)
+        line_equation_fy(canvas, pts[0][0], pts[0][1], pts[1][0], pts[1][1], g, col)
+        line_equation_fy(canvas, pts[1][0], pts[1][1], pts[2][0], pts[2][1], g, col)
+        line_equation_fy(canvas, pts[2][0], pts[2][1], pts[3][0], pts[3][1], g, col)
+        line_equation_fy(canvas, pts[3][0], pts[3][1], pts[0][0], pts[0][1], g, col)
 
 
-def traslacionCuadrado():
-    pass
 
-def rotacionCuadrado():
-    pass
-
-def reflexionCuadrado():
-    pass
+def dibujarTriangulo(canvas:Canvas, pts:list, g:int, segm:bool, col):
+    if segm:
+        create_segmented_line(canvas, pts[0][0], pts[0][1], pts[1][0], pts[1][1], g=g, col=col)
+        create_segmented_line(canvas, pts[1][0], pts[1][1], pts[2][0], pts[2][1], g=g, col=col)
+        create_segmented_line(canvas, pts[2][0], pts[2][1], pts[0][0], pts[0][1], g=g, col=col)
+    else:
+        line_equation_fx(canvas, pts[0][0], pts[0][1], pts[1][0], pts[1][1], g, col)
+        line_equation_fx(canvas, pts[1][0], pts[1][1], pts[2][0], pts[2][1], g, col)
+        line_equation_fx(canvas, pts[2][0], pts[2][1], pts[0][0], pts[0][1], g, col)
+        line_equation_fy(canvas, pts[0][0], pts[0][1], pts[1][0], pts[1][1], g, col)
+        line_equation_fy(canvas, pts[1][0], pts[1][1], pts[2][0], pts[2][1], g, col)
+        line_equation_fy(canvas, pts[2][0], pts[2][1], pts[0][0], pts[0][1], g, col)
