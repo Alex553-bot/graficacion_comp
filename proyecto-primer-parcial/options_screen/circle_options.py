@@ -7,8 +7,7 @@ class popup_cro(Frame):
         self.out = out_val
         super().__init__(master=master, *args, **kargs)
         self.top_level = Toplevel(master)
-        #incluir botones para entradas, etc.
-        
+                
         self.puntos_input()
 
         self.grosor_color_frame()
@@ -21,7 +20,7 @@ class popup_cro(Frame):
     
     def puntos_input(self):
         self.entt_impo = Frame(master=self.top_level)
-        Label(master=self.entt_impo, text='Punto A:').pack(side=LEFT)
+        Label(master=self.entt_impo, text='Punto C:').pack(side=LEFT)
         self.a_in_x = Entry(master=self.entt_impo)
         self.a_in_x.pack(side=LEFT)
         self.a_in_y = Entry(master=self.entt_impo)

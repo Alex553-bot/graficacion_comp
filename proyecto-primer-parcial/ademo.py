@@ -1,6 +1,6 @@
 import tkinter as tk
 import math
-from draw_functions.CuadradoLeonel import dibujarCuadrado, dibujarTriangulo
+from draw_functions.figuras import dibujarCuadrado, dibujarTriangulo
 from draw_functions.g_util import *
 from draw_functions.line_ import *
 
@@ -18,7 +18,7 @@ x, y, x1, y1 = 123, 343, 124, 536
 #lista = [(123, 313), (280, 378), (214,536), (56, 470)]
 lista = [(123, 313), (280, 378), (214,536)]
 #dibujarCuadrado(canvas = canvas, pts=lista, g = 1, segm=True, col='#ff2305')
-dibujarTriangulo(canvas, lista, 1, False, '#12ad23')
+dibujarTriangulo(canvas, lista, 1, True, '#12ad23')
 #line_bresenham(canvas, 36, 70,12,12, 1, '#000000')
 
 root.mainloop()

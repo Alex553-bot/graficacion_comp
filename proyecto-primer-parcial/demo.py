@@ -12,20 +12,21 @@ class View(Frame):
         self.pack(fill=BOTH, expand=1)
         canvas = Canvas(self)
 
-        line_equation_fx(canvas, 45, 13, 720, 113, 1)
-        line_equation_fy(canvas, 45, 33, 720, 133, 1)
-        line_bresenham(canvas, 45, 53, 720, 153,1)
-        line_dda(canvas, 45, 73, 720, 173, 1)
-        line_dda(canvas, 45, 173, 720, 73, 1)
-        line_dda(canvas, 10, 173, 10, 13, 1)
-        line_dda(canvas, 10, 27, 50, 27, 1)
-        line_bresenham(canvas, 10, 17, 50, 17, 1)
+        #line_equation_fx(canvas, 45, 13, 720, 113, 1)
+        #line_equation_fy(canvas, 45, 33, 720, 133, 1)
+        #line_bresenham(canvas, 45, 53, 720, 153,1)
+        #line_dda(canvas, 45, 73, 720, 173, 1)
+        #line_dda(canvas, 45, 173, 720, 73, 1)
+        #line_dda(canvas, 10, 173, 10, 13, 1)
+        #line_dda(canvas, 10, 27, 50, 27, 1)
+        #line_bresenham(canvas, 10, 17, 50, 17, 1)
 
         r = 1
         while r <= 100:
-            circle_equation_fx(canvas, 105, 290, r, 2)
-            circle_polar_coordinates(canvas, 305, 290, r,2)
-            circle_mid_point(canvas, 505, 290, r, 7)
+            circle_equation_fx(canvas, 105, 290, r, 2, '#000000')
+            circle_polar_coordinates(canvas, 305, 290, r,2, '#000000')
+            circle_mid_point(canvas, 505, 290, r, 7, '#000000')
+            segmented_circle(canvas, 234, 150, r=r,q=5, g=3, col='#000000')
             r += 20
 
         canvas.pack(fill=BOTH, expand=1)

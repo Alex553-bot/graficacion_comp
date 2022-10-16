@@ -9,8 +9,7 @@ import options_screen.circle_options as crp
 
 from Objeto import *
 
-from draw_functions.CuadradoLeonel import *
-from draw_functions.circle import *
+from draw_functions.figuras import *
 
 def iconxR(nameIcon):
     dir = "icons/{}.png".format(nameIcon)
@@ -52,8 +51,8 @@ def options_square():
 
 def options_triangle():
     capt = []
-    aux = itp.popup_tro(capt, winMain)
-    aux.top_level.wait_window
+    aux = itp.popup_tro(capt,winMain)
+    aux.top_level.wait_window()
     if len(capt)>0:
         p1, p2, p3 = (capt[0], capt[1]), (capt[2], capt[3]), (capt[4], capt[5])
         psqr = [p1, p2, p3]
@@ -63,28 +62,21 @@ def options_triangle():
 
 def options_circle():
     capt = []
-    aux = crp.popup_cro(capt, winMain)
-    aux.top_level.wait_window
+    aux = crp.popup_cro(capt,winMain)
+    aux.top_level.wait_window()
     if len(capt)!=0:
         xc,yc = capt[0],capt[1]
         r = capt[2]
-        obj = Objeto(2, [(xc, yc)], capt[4][2], capt[4][0], capt[4][1], r)
+        obj = Objeto(2, [(xc, yc)], capt[3][2], capt[3][0], capt[3][1], r)
         objetos.append(obj)
-        if (obj.segmentado):
-            segmented_circle(canv,xc, yc, r, g=1, col = obj.color)
-        else:
-            circle_mid_point(canv,xc, yc, r, g=1)
+        dibujarCirculo(canv, obj.puntos_clave, obj.rad, obj.grosor, obj.segmentado, obj.color)
+
+        
 winMain = tk.Tk()
 
-# winMain.state('zoomed')
 winMain.title("Graficación por computadora")
 winMain.geometry("1000x800")
 winMain.minsize(500,500)
-
-#winMain.grid_rowconfigure(0, weight=3)
-#winMain.grid_columnconfigure(0, weight=1)
-#winMain.grid_columnconfigure(1, weight=2)
-#winMain.grid_columnconfigure(2, weight=2)
 
 titleW = tk.Label(winMain, text= "ALGORITMOS DE LÍNEA", font= "Arial 20")
 
@@ -113,9 +105,6 @@ menus.add_cascade(menu = menuOptions, label = "Opciones")
 
 winMain.config(menu = menus)
 
-#frameMenu    = tk.Frame(winMain, height = 20, relief = "raised", borderwidth = 1)
-#frameButtons = tk.Frame(winMain, width  = 30, relief = "raised", borderwidth = 1)
-
 frameMenu       = tk.Frame(winMain)
 frameButtons    = tk.Frame(frameMenu)
 
@@ -128,15 +117,8 @@ buttonC.pack(side=tk.LEFT)
 buttonT.pack(side=tk.LEFT)
 frameButtons.pack(side=tk.LEFT)
 frameMenu.pack(side=tk.TOP)
-#frameMenu.grid(row = 0, column = 0)
-#frameButtons.grid(row = 1, column = 0)
-
-#buttonS.grid(row = 0, column = 0, padx = (0,3), pady = (3,3))
-#buttonC.grid(row = 1, column = 0, padx = (0,3), pady = (3,3))
-#buttonT.grid(row = 2, column = 0, padx = (0,3), pady = (3,3))
 
 canv = tk.Canvas(master=winMain)
-# aqui realizamos los pasos para poder pintar un objeto
 
 canv.config(background='white')
 canv.pack(expand=True,side=tk.BOTTOM, fill='both')

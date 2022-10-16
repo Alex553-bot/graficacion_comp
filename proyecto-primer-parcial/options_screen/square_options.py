@@ -1,6 +1,5 @@
 from tkinter import *
 from tkinter import messagebox
-from tkinter import colorchooser
 from tkinter.colorchooser import askcolor
 
 class popup_sqo(Frame):
@@ -23,16 +22,19 @@ class popup_sqo(Frame):
         self.entt_impo = Frame(master=self.top_level)
         self.a = Label(master=self.entt_impo, text='Punto A:')
         self.a.pack(side=LEFT)
+
         self.a_in_x = Entry(master=self.entt_impo)
         self.a_in_x.pack(side=LEFT)
         self.a_in_y = Entry(master=self.entt_impo)
         self.a_in_y.pack(side=LEFT)
+        
         self.b = Label(master=self.entt_impo, text='Punto B:')
         self.b.pack(side=LEFT)
         self.b_in_x = Entry(master=self.entt_impo)
         self.b_in_x.pack(side=LEFT)
         self.b_in_y = Entry(master=self.entt_impo)
         self.b_in_y.pack(side=LEFT)
+        
         self.entt_impo.pack(side=TOP)
 
     def grosor_color_frame(self):
