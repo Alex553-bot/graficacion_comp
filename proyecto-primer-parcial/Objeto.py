@@ -9,5 +9,12 @@ class Objeto:
         self.id = x
         self.rad = r
 
+        if (x==1):
+            self.identificador='Cuadrado '
+        elif (x==2):
+            self.identificador = 'Circulo '
+        else: 
+            self.identificador = 'Triangulo '
+
     def print(self):
         print(self.puntos_clave)

@@ -1,5 +1,3 @@
-from ctypes import sizeof
-from struct import pack
 import tkinter as tk
 from PIL import Image, ImageTk
 
@@ -7,9 +5,14 @@ import options_screen.square_options as isp
 import options_screen.triangle_options as itp
 import options_screen.circle_options as crp
 
+import options_screen.tras_options as osto
+import options_screen.rota_options as osro
+import options_screen.scal_options as osso
+
 from Objeto import *
 
 from draw_functions.figuras import *
+from draw_functions.transformations import *
 
 def iconxR(nameIcon):
     dir = "icons/{}.png".format(nameIcon)
@@ -19,7 +22,7 @@ def iconxR(nameIcon):
     return icon
 
 
-objetos = [[]]
+objetos = list()
 
 
 def options_square():
@@ -71,7 +74,58 @@ def options_circle():
         objetos.append(obj)
         dibujarCirculo(canv, obj.puntos_clave, obj.rad, obj.grosor, obj.segmentado, obj.color)
 
-        
+def recargar():
+    canv.delete('all')
+    for x in objetos:
+        if x.id==1:
+            dibujarCuadrado(canv, x.puntos_clave, x.grosor, x.segmentado, x.color)
+        elif x.id==2:
+            dibujarCirculo(canv, x.puntos_clave, x.r, x.grosor, x.segmentado, x.color)
+        else :
+            dibujarTriangulo(canv, x.puntos_clave, x.grosor, x.segmentado, x.color)
+
+def traslate():
+    capt = []
+    if len(objetos)>0:
+        irl = []
+        for x in objetos:
+            irl.append(x.identificador + str(hex(id(x))))
+        aux = osto.popup_traslacion(capt, irl, winMain) 
+        aux.wait_window
+    if len(capt)>0:
+        recargar()
+
+def rotate():
+    capt = []
+    if len(objetos)>0:
+        irl = []
+        for x in objetos:
+            irl.append(x.identificador + str(hex(id(x))))
+        aux = osro.popup_rotacion(capt, irl, winMain) 
+        aux.wait_window
+    if len(capt)>0:
+
+        recargar()
+
+def search(a):
+    p = objetos[0]
+    for q in objetos:
+        if repr(q)==a:
+            p = q
+            break
+    return p
+
+def scale():
+    capt = []
+    if len(objetos)>0:
+        irl = []
+        for x in objetos:
+            irl.append(x.identificador + str(hex(id(x))))
+        aux = osso.popup_escalacion(capt, irl, winMain) 
+        aux.wait_window
+    if len(capt)>0:
+        recargar()
+
 winMain = tk.Tk()
 
 winMain.title("Graficación por computadora")
@@ -100,8 +154,23 @@ menuArchive.add_command(label = "Salir", command = winMain.destroy)
 
 menuOptions = tk.Menu(menus, tearoff = False)
 
+transfOptions = tk.Menu(menus, tearoff=False)
+transfOptions.add_command(
+    label='Traslacion',
+    command = traslate
+)
+transfOptions.add_command(
+    label='Rotacion',
+    command=rotate
+)
+transfOptions.add_command(
+    label='Escalacion',
+    command = scale
+)
+
 menus.add_cascade(menu = menuArchive, label = "Archivo")
 menus.add_cascade(menu = menuOptions, label = "Opciones")
+menus.add_cascade(menu = transfOptions, label='Transformaciones')
 
 winMain.config(menu = menus)
 
