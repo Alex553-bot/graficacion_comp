@@ -21,9 +21,7 @@ def iconxR(nameIcon):
     icon = ImageTk.PhotoImage(icon)
     return icon
 
-
 objetos = list()
-
 
 def options_square():
     capt = []
@@ -85,27 +83,30 @@ def recargar():
             dibujarTriangulo(canv, x.puntos_clave, x.grosor, x.segmentado, x.color)
 
 def traslate():
-    capt = []
     if len(objetos)>0:
         irl = []
         for x in objetos:
             irl.append(x.identificador + str(hex(id(x))))
-        aux = osto.popup_traslacion(capt, irl, winMain) 
-        aux.wait_window
-    if len(capt)>0:
-        recargar()
+        capt = []
+        aux = osto.popup_traslacion(capt,irl,winMain)
+        aux.top_level.wait_window()
+        if len(capt)>0:
+            ap = search(capt[-1])
+            ap.puntos_clave = translation(ap.puntos_clave, capt[0], capt[1])
+            recargar()
 
 def rotate():
-    capt = []
     if len(objetos)>0:
         irl = []
         for x in objetos:
             irl.append(x.identificador + str(hex(id(x))))
-        aux = osro.popup_rotacion(capt, irl, winMain) 
-        aux.wait_window
-    if len(capt)>0:
-
-        recargar()
+        capt = []
+        aux = osro.popup_rotacion(capt,irl,winMain)
+        aux.top_level.wait_window()
+        if len(capt)>0:
+            ap = search(capt[-1])
+            ap.puntos_clave = rotation_fixed_point(ap.puntos_clave, capt[0], capt[1], capt[2])
+            recargar()
 
 def search(a):
     p = objetos[0]
@@ -116,15 +117,17 @@ def search(a):
     return p
 
 def scale():
-    capt = []
     if len(objetos)>0:
         irl = []
         for x in objetos:
             irl.append(x.identificador + str(hex(id(x))))
-        aux = osso.popup_escalacion(capt, irl, winMain) 
-        aux.wait_window
-    if len(capt)>0:
-        recargar()
+        capt = []
+        aux = osso.popup_escalacion(capt, irl,winMain)
+        aux.top_level.wait_window()
+        if len(capt)>0:
+            ap = search(capt[-1])
+            ap.puntos_clave = scale_fixed_point(ap.puntos_clave, capt[0], capt[1], capt[2], capt[3])
+            recargar()
 
 winMain = tk.Tk()
 

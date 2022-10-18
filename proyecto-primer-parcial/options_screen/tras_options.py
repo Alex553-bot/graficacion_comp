@@ -41,7 +41,7 @@ class popup_traslacion(Frame):
         try:
             self.out.append(int(self.t_in_x.get()))
             self.out.append(int(self.t_in_y.get()))
-            self.out.append(self.variable.get())
+            self.out.append(self.variable.get().split()[-1])
             self.destroy()           
         except ValueError:
             self.mostrarError('Error en las entradas, solo admite numeros')

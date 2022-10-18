@@ -44,6 +44,10 @@ def line_equation_fy(canvas, x1, y1, x2, y2, g, col):
             y += 1
 
 def line_dda(canvas, x1, y1, x2, y2, g, col):
+    x1 = int(x1)
+    y1 = int(y1)
+    x2 = int(x2)
+    y2 = int(y2)
     if x1 > x2:
         x1 ^= x2
         x2 ^= x1

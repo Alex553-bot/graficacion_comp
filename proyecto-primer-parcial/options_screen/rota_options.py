@@ -45,7 +45,8 @@ class popup_rotacion(Frame):
             self.out.append(int(self.p_in_x.get()))
             self.out.append(int(self.p_in_y.get()))
             self.out.append(int(self.ang.get())%360)
-            self.out.append(self.variable.get())
+            self.out.append(self.variable.get().split()[-1])
+            print(self.out[-1])
             self.destroy()           
         except ValueError:
             self.mostrarError('Error en las entradas, solo admite numeros')

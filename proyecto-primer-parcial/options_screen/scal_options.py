@@ -18,11 +18,17 @@ class popup_escalacion(Frame):
     
     def pts_clv(self):
         self.entt_impo = Frame(master=self.top_level)
-        Label(master=self.entt_impo, text='tx:').pack(side=LEFT)
+        Label(master=self.entt_impo, text='Foco:').pack(side=LEFT)
+        self.f_in_x = Entry(master=self.entt_impo)
+        self.f_in_x.pack(side=LEFT)
+
+        self.f_in_y = Entry(master=self.entt_impo)
+        self.f_in_y.pack(side=LEFT)
+
+        Label(master=self.entt_impo, text='S:').pack(side=LEFT)
         self.s_in_x = Entry(master=self.entt_impo)
         self.s_in_x.pack(side=LEFT)
 
-        Label(master=self.entt_impo, text='ty:').pack(side=LEFT)
         self.s_in_y = Entry(master=self.entt_impo)
         self.s_in_y.pack(side=LEFT)
 
@@ -39,9 +45,11 @@ class popup_escalacion(Frame):
 
     def save_destroy(self):
         try:
-            self.out.append(int(self.s_in_x.get()))
-            self.out.append(int(self.s_in_y.get()))
-            self.out.append(self.variable.get())
+            self.out.append(int(self.f_in_x.get()))
+            self.out.append(int(self.f_in_y.get()))
+            self.out.append(float(self.s_in_x.get()))
+            self.out.append(float(self.s_in_y.get()))
+            self.out.append(self.variable.get().split()[-1])
             self.destroy()           
         except ValueError:
             self.mostrarError('Error en las entradas, solo admite numeros')
