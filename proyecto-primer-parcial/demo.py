@@ -48,20 +48,28 @@ class View(Frame):
         draw_polygon(canvas, rotation_fixed_point(puntos, 75, 75, 45), 1)
         draw_polygon(canvas, scale_fixed_point(puntos, 75, 75, 2, 2), 1)
         """
+        #puntos = [(250, 100), (300, 100), (275, 50)]
 
-        puntos = [(250, 100), (300, 100), (275, 50)]
+        #draw_polygon(canvas, puntos, 1)
 
-        draw_polygon(canvas, puntos, 1)
+        #boundary_fill_4(canvas, 272, 82, 'red', 'black')
 
-        boundary_fill_4(canvas, 272, 82, 'red', 'black')
+        circle_mid_point(canvas, 200, 200, 10, 1)
+        boundary_fill_4(canvas, 200, 200, 'yellow', 'black')
 
-        circle_mid_point(canvas, 200, 200, 50, 1)
-        boundary_fill_4(canvas, 220, 220, 'yellow', 'black')
-
-        puntos = [(50, 50), (100, 50), (100, 100), (50, 100)]
-        draw_polygon(canvas, puntos, 1)
-        boundary_fill_4(canvas, 75, 75, 'red', 'black')
-
+        #puntos = [(50, 50), (100, 50), (100, 100), (50, 100)]
+        #draw_polygon(canvas, puntos, 1)
+        #boundary_fill_4(canvas, 75, 75, 'red', 'black')
+        """
+        x = 10
+        y = 10
+        canvas.create_rectangle(x, y, x, y, fill='black')
+        print(get_pixel_color(canvas, x, y))
+        print(get_pixel_color(canvas, x, y + 1))
+        print(get_pixel_color(canvas, x - 1, y))
+        print(get_pixel_color(canvas, x, y - 1))
+        print(get_pixel_color(canvas, x + 1, y))
+        """
         canvas.pack(fill=BOTH, expand=1)
 
 def main():
