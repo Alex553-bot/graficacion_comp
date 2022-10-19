@@ -18,20 +18,14 @@ def get_pixel_color(canvas, x, y):
             return color
     return 'white'
 
-def boundary_fill_4(canvas, x, y, fill_color, boundary_color, i=0):
-    if i >= (5000):
-        return
+def boundary_fill_4(canvas, x, y, fill_color, boundary_color):
     pixel_color = get_pixel_color(canvas, x, y)
     if pixel_color != fill_color and pixel_color != boundary_color:
         fill_pixel(canvas, x, y, fill_color)
-        i += 1
-        boundary_fill_4(canvas, x, y - 1, fill_color, boundary_color, i)
-        i += 1
-        boundary_fill_4(canvas, x - 1, y, fill_color, boundary_color, i)
-        i += 1
-        boundary_fill_4(canvas, x, y + 1, fill_color, boundary_color, i)
-        i += 1
-        boundary_fill_4(canvas, x + 1, y, fill_color, boundary_color, i)
+        boundary_fill_4(canvas, x, y - 1, fill_color, boundary_color)
+        boundary_fill_4(canvas, x - 1, y, fill_color, boundary_color)
+        boundary_fill_4(canvas, x, y + 1, fill_color, boundary_color)
+        boundary_fill_4(canvas, x + 1, y, fill_color, boundary_color)
 
 def boundary_fill_8(canvas, x, y, fill_color, boundary_color):
     stack = [[x,y]]
