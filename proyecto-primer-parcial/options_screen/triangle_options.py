@@ -7,6 +7,7 @@ class popup_tro(Frame):
         self.out = out_val
         super().__init__(master=master, *args, **kargs)
         self.top_level = Toplevel(master)
+        self.colorr = '#000000'
         #incluir botones para entradas, etc.
         
         self.puntos_input()
@@ -44,20 +45,25 @@ class popup_tro(Frame):
     def grosor_color_frame(self):
         self.gro_col = Frame(master=self.top_level)
         Label(master=self.gro_col, text='grosor:').pack(side=LEFT)
-        var = StringVar(self.gro_col)
-        self.grosor = OptionMenu(self.gro_col,var, '1', '2', '3',command=self.redef)
-        var.set('1')
+        self.var = StringVar(self.gro_col)
+        self.var.set('1')
+        option = ['1', '2', '3']
+        self.grosor = OptionMenu(self.gro_col,self.var, *option)
         self.grosor.pack(side=LEFT)
         Label(master=self.gro_col, text='color: ').pack(side=LEFT)
         self.color = Entry(master=self.gro_col)
+        self.color.insert(0, '#000000')
         self.color.pack(side=LEFT)
         Button(master=self.gro_col, text='cod_col', command=self.getcolor).pack(side=RIGHT)
         self.gro_col.pack(side=TOP)
 
     def getcolor(self):
         self.colorr = askcolor()[1]
-        self.color.delete(0, END)
-        self.color.insert(0, self.colorr)
+        if self.colorr!=None:
+            self.color.delete(0, END)
+            self.color.insert(0, self.colorr)
+        else: 
+            self.colorr = self.color.get()
 
     def segmentado_input(self):
         self.segmentado_out = False
@@ -73,10 +79,6 @@ class popup_tro(Frame):
         print(self.segmentado_out)
         self.segmentado_out = not (self.segmentado_out)
 
-
-    def redef(self, selection):
-        self.grosor_out = selection
-
     def destroy(self):
         self.top_level.destroy()
     
@@ -89,7 +91,7 @@ class popup_tro(Frame):
             self.out.append(int(self.c_in_x.get()))
             self.out.append(int(self.c_in_y.get()))
             app = []
-            app.append(int(self.grosor_out))
+            app.append(int(self.var.get()))
             app.append(self.colorr)
             app.append(self.segmentado_out)
             self.out.append(app)

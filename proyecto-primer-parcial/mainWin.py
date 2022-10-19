@@ -13,6 +13,7 @@ from Objeto import *
 
 from draw_functions.figuras import *
 from draw_functions.transformations import *
+from paint_functions.boundary_fill import *
 
 def iconxR(nameIcon):
     dir = "icons/{}.png".format(nameIcon)
@@ -45,7 +46,13 @@ def options_square():
         y4 = int(yc - xd)
         psqr.append((x4,y4)) 
         print(psqr)   
-        obj = Objeto(x=1, pts_clave=psqr, segm=capt[4][2], gr=capt[4][0], col=capt[4][1])
+        obj = Objeto(
+            x=1, 
+            pts_clave=psqr, 
+            segm=capt[4][2], 
+            gr=capt[4][0], 
+            col=capt[4][1]
+        )
         objetos.append(obj)
         dibujarCuadrado(canv, psqr, obj.grosor, obj.segmentado, obj.color)
         
@@ -92,11 +99,8 @@ def traslate():
 
 def rotate():
     if len(objetos)>0:
-        irl = []
-        for x in objetos:
-            irl.append(x.identificador + str(hex(id(x))))
         capt = []
-        aux = osro.popup_rotacion(capt,irl,winMain)
+        aux = osro.popup_rotacion(capt,objetos,winMain)
         aux.top_level.wait_window()
         if len(capt)>0:
             ap = search(capt[-1])
@@ -128,14 +132,14 @@ def scale():
 
 def repaint(x:Objeto):
     if x.id==1:
-        dibujarCuadrado(canv, x.puntos_clave, x.grosor, x.segmentado, 'white')
-        dibujarCuadrado(canv, x.puntos_clave, x.grosor, x.segmentado, x.color)        
+        dibujarCuadrado(canv, x.puntos_clave, x.grosor, x.segmentado, x.color)  
+        boundary_fill_8(canv, x.pto_medio()[0], x.pto_medio()[1], x.relleno, x.color)          
     elif x.id==2:
-        dibujarCirculo(canv, x.puntos_clave, x.rad, x.grosor, x.segmentado, "white")
         dibujarCirculo(canv, x.puntos_clave, x.rad, x.grosor, x.segmentado, x.color)
+        boundary_fill_8(canv, x.pto_medio()[0], x.pto_medio()[1], x.relleno, x.color)
     else :
         dibujarTriangulo(canv, x.puntos_clave, x.grosor, x.segmentado, x.color)
-
+        boundary_fill_8(canv, x.pto_medio()[0], x.pto_medio()[1], x.relleno, x.color)
 
 
 winMain = tk.Tk()
