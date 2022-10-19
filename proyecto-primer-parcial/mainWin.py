@@ -75,12 +75,7 @@ def options_circle():
 def recargar():
     canv.delete('all')
     for x in objetos:
-        if x.id==1:
-            dibujarCuadrado(canv, x.puntos_clave, x.grosor, x.segmentado, x.color)
-        elif x.id==2:
-            dibujarCirculo(canv, x.puntos_clave, x.r, x.grosor, x.segmentado, x.color)
-        else :
-            dibujarTriangulo(canv, x.puntos_clave, x.grosor, x.segmentado, x.color)
+        repaint(x)
 
 def traslate():
     if len(objetos)>0:
@@ -111,9 +106,10 @@ def rotate():
 def search(a):
     p = objetos[0]
     for q in objetos:
-        if repr(q)==a:
-            p = q
-            break
+        print(repr(q))
+        print(a)
+        if repr(q).rpartition(' ')[-1][:-1]==a:
+            return q
     return p
 
 def scale():
@@ -128,6 +124,19 @@ def scale():
             ap = search(capt[-1])
             ap.puntos_clave = scale_fixed_point(ap.puntos_clave, capt[0], capt[1], capt[2], capt[3])
             recargar()
+
+
+def repaint(x:Objeto):
+    if x.id==1:
+        dibujarCuadrado(canv, x.puntos_clave, x.grosor, x.segmentado, 'white')
+        dibujarCuadrado(canv, x.puntos_clave, x.grosor, x.segmentado, x.color)        
+    elif x.id==2:
+        dibujarCirculo(canv, x.puntos_clave, x.rad, x.grosor, x.segmentado, "white")
+        dibujarCirculo(canv, x.puntos_clave, x.rad, x.grosor, x.segmentado, x.color)
+    else :
+        dibujarTriangulo(canv, x.puntos_clave, x.grosor, x.segmentado, x.color)
+
+
 
 winMain = tk.Tk()
 
