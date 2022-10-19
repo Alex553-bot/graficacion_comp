@@ -23,11 +23,11 @@ class popup_rotacion(Frame):
         self.entt_impo = Frame(master=self.top_level)
         Label(master=self.entt_impo, text='A:').pack(side=LEFT)
         self.p_in_x = Entry(master=self.entt_impo)
-        self.p_in_x.insert(0, self.oo[0].pto_medio()[0])
+        self.p_in_x.insert(0, '0')
         self.p_in_x.pack(side=LEFT)
 
         self.p_in_y = Entry(master=self.entt_impo)
-        self.p_in_y.insert(0, self.oo[0].pto_medio()[1])
+        self.p_in_y.insert(0, '0')
 
         self.p_in_y.pack(side=LEFT)
 
@@ -40,17 +40,8 @@ class popup_rotacion(Frame):
     def dpl(self, aux:list):
         self.variable = StringVar(self.top_level)
         self.variable.set(aux[0])
-        self.option_men = OptionMenu(self.top_level, self.variable, *aux, command=self.actu)
+        self.option_men = OptionMenu(self.top_level, self.variable, *aux)
         self.option_men.pack(side=TOP)
-    
-    def actu(self):
-        i = self.irl.index(self.variable.get())
-        print(i)
-        ob = self.oo[i]
-        #self.p_in_x.delete(0, END)
-        #self.p_in_y.delete(0, END)
-        #self.p_in_x.insert(0, str(ob.pto_medio()[0]))
-        #self.p_in_y.insert(0, str(ob.pto_medio()[1]))
 
     def destroy(self):
         self.top_level.destroy()

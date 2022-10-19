@@ -20,9 +20,11 @@ class popup_escalacion(Frame):
         self.entt_impo = Frame(master=self.top_level)
         Label(master=self.entt_impo, text='Foco:').pack(side=LEFT)
         self.f_in_x = Entry(master=self.entt_impo)
+        self.f_in_x.insert(0, '0')
         self.f_in_x.pack(side=LEFT)
 
         self.f_in_y = Entry(master=self.entt_impo)
+        self.f_in_y.insert(0, '0')
         self.f_in_y.pack(side=LEFT)
 
         Label(master=self.entt_impo, text='S:').pack(side=LEFT)

@@ -113,9 +113,12 @@ def traslate():
         if len(capt)>0:
             ap = search(capt[-1])
             if ap.relleno=='#ffffff':
-                dibujarCuadrado(canv, ap.puntos_clave, ap.grosor, ap.segmentado, '#ffffff')
+                st = ap.color
+                ap.color= '#ffffff'
+                repaint(ap)
                 ap.puntos_clave = translation(ap.puntos_clave, capt[0], capt[1])
-                dibujarCuadrado(canv, ap.puntos_clave, ap.grosor, ap.segmentado, ap.color)
+                ap.color = st
+                repaint(ap)
             else:
                 ap.puntos_clave = translation(ap.puntos_clave, capt[0], capt[1])
                 recargar()
@@ -127,6 +130,8 @@ def rotate():
         aux.top_level.wait_window()
         if len(capt)>0:
             ap = search(capt[-1])
+            if capt[0]==0 and capt[1]==0:
+                capt[0], capt[1] = ap.pto_medio()[0], ap.pto_medio()[1]
             ap.puntos_clave = rotation_fixed_point(ap.puntos_clave, capt[0], capt[1], capt[2])
             recargar()
 
@@ -149,7 +154,13 @@ def scale():
         aux.top_level.wait_window()
         if len(capt)>0:
             ap = search(capt[-1])
+            if capt[0]==0 and capt[1]==0:
+                capt[0], capt[1] = ap.pto_medio()[0], ap.pto_medio()[1]
             ap.puntos_clave = scale_fixed_point(ap.puntos_clave, capt[0], capt[1], capt[2], capt[3])
+            if ap.id ==2:
+                print(ap.rad)
+                ap.rad = ap.rad*capt[2]
+                print(ap.rad)
             recargar()
 
 

@@ -6,7 +6,7 @@ class popup_cro(Frame):
     def __init__(self, out_val:list, master: Tk, *args, **kargs):
         self.out = out_val
         super().__init__(master=master, *args, **kargs)
-        self.colorr = '#000000'
+        self.colorr = '#ffffff'
         self.top_level = Toplevel(master)
                 
         self.puntos_input()
@@ -41,7 +41,7 @@ class popup_cro(Frame):
         self.grosor.pack(side=LEFT)
         Label(master=self.gro_col, text='color: ').pack(side=LEFT)
         self.color = Entry(master=self.gro_col)
-        self.color.insert(0, '#000000')
+        self.color.insert(0, '#ffffff')
         self.color.pack(side=LEFT)
         Button(master=self.gro_col, text='cod_col', command=self.getcolor).pack(side=RIGHT)
         self.gro_col.pack(side=TOP)
