@@ -54,8 +54,8 @@ class View(Frame):
 
         #boundary_fill_4(canvas, 272, 82, 'red', 'black')
 
-        circle_mid_point(canvas, 200, 200, 10, 1)
-        boundary_fill_4(canvas, 200, 200, 'yellow', 'black')
+        circle_mid_point(canvas, 200, 200, 15, 1)
+        boundary_fill_4(canvas, 200, 200, 'red', 'black')
 
         #puntos = [(50, 50), (100, 50), (100, 100), (50, 100)]
         #draw_polygon(canvas, puntos, 1)
@@ -70,6 +70,11 @@ class View(Frame):
         print(get_pixel_color(canvas, x, y - 1))
         print(get_pixel_color(canvas, x + 1, y))
         """
+
+        #puntos = [(50, 50), (50, 50), (50, 50), (50, 50)]
+        #draw_polygon(canvas, puntos, 1)
+        #boundary_fill_4(canvas, 75, 75, 'red', 'black')
+
         canvas.pack(fill=BOTH, expand=1)
 
 def main():
