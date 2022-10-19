@@ -54,8 +54,8 @@ class View(Frame):
 
         #boundary_fill_4(canvas, 272, 82, 'red', 'black')
 
-        circle_mid_point(canvas, 200, 200, 15, 1)
-        boundary_fill_4(canvas, 200, 200, 'red', 'black')
+        #circle_mid_point(canvas, 200, 200, 15, 1)
+        #boundary_fill_4(canvas, 200, 200, 'red', 'black')
 
         #puntos = [(50, 50), (100, 50), (100, 100), (50, 100)]
         #draw_polygon(canvas, puntos, 1)
@@ -74,6 +74,20 @@ class View(Frame):
         #puntos = [(50, 50), (50, 50), (50, 50), (50, 50)]
         #draw_polygon(canvas, puntos, 1)
         #boundary_fill_4(canvas, 75, 75, 'red', 'black')
+
+        circle_mid_point(canvas, 300, 300, 80, 1)
+        # canvas.create_rectangle(297, 297, 303, 303, fill='red', outline='red')
+        #boundary_fill_8(canvas, 300, 245, 'blue', 'black', 0)
+        #boundary_fill_8(canvas, 255, 300, 'blue', 'black', 0)
+        #boundary_fill_8(canvas, 300, 345, 'blue', 'black', 0)
+        #boundary_fill_8(canvas, 345, 300, 'blue', 'black', 0)
+        #boundary_fill_8(canvas, 300, 300, 'blue', 'black', 0)
+
+        boundary_fill_8(canvas, 280, 340, 'blue', 'black', 0)
+        boundary_fill_8(canvas, 320, 340, 'blue', 'black', 0)
+
+        canvas.create_rectangle(280, 340, 280, 340, fill='red', outline='red')
+        canvas.create_rectangle(320, 340, 320, 340, fill='red', outline='red')
 
         canvas.pack(fill=BOTH, expand=1)
 
