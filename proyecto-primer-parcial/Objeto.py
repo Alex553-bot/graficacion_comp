@@ -1,7 +1,7 @@
 
 
 class Objeto:
-    def __init__(self, x:int, pts_clave:list, segm, gr:int, col:str, r=0, rel='#000000'):
+    def __init__(self, x:int, pts_clave:list, segm, gr:int, col:str, r=0, rel='#ffff11'):
         self.puntos_clave = pts_clave
         self.color = col
         self.segmentado = segm

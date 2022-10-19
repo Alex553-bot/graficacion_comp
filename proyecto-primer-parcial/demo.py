@@ -49,12 +49,12 @@ class View(Frame):
 
         #boundary_fill_4(canvas, 272, 82, 'red', 'black')
 
-        circle_mid_point(canvas, 200, 200, 60, 1, 'black')
-        boundary_fill_8(canvas, 200, 200, 'red', 'black')
+        #circle_mid_point(canvas, 200, 200, 100, 1, 'black')
+        #boundary_fill_8(canvas, 200, 200, 'red', 'black')
 
-        #puntos = [(50, 50), (70, 50), (70, 70), (50, 70)]
-        #dibujarCuadrado(canvas, puntos, 1, False, '#000000')
-        #boundary_fill_4(canvas, 75, 75, 'red', 'black')
+        puntos = [(50, 50), (70, 50), (70, 70), (50, 70)]
+        dibujarCuadrado(canvas, puntos, 1, False, '#000000')
+        boundary_fill_8(canvas, 60, 60, 'red', 'black')
         """
         x = 10
         y = 10

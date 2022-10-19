@@ -6,7 +6,7 @@ from tkinter import Canvas
 sys.setrecursionlimit(1980*1080)
 
 
-def fill_pixel(canvas, x, y, fill_color):
+def fill_pixel(canvas:Canvas, x, y, fill_color):
     canvas.create_rectangle(x, y, x, y, fill=fill_color, outline=fill_color)
 
 def get_pixel_color(canvas, x, y):
@@ -19,7 +19,7 @@ def get_pixel_color(canvas, x, y):
     return 'white'
 
 def boundary_fill_4(canvas, x, y, fill_color, boundary_color, i=0):
-    if i >= (500*500):
+    if i >= (5000):
         return
     pixel_color = get_pixel_color(canvas, x, y)
     if pixel_color != fill_color and pixel_color != boundary_color:
@@ -33,8 +33,8 @@ def boundary_fill_4(canvas, x, y, fill_color, boundary_color, i=0):
         i += 1
         boundary_fill_4(canvas, x + 1, y, fill_color, boundary_color, i)
 
-def boundary_fill_8(canvas, x, y, fill_color, boundary_color, i=0):
-    if i >= (500*500):
+def boundary_fill_81(canvas, x, y, fill_color, boundary_color, i=0):
+    if i >= (10000):
         return
     pixel_color = get_pixel_color(canvas, x, y)
     if pixel_color != fill_color and pixel_color != boundary_color:
@@ -55,3 +55,21 @@ def boundary_fill_8(canvas, x, y, fill_color, boundary_color, i=0):
         boundary_fill_8(canvas, x + 1, y, fill_color, boundary_color, i)
         i += 1
         boundary_fill_8(canvas, x + 1, y - 1, fill_color, boundary_color, i)
+
+def boundary_fill_8(canvas, x, y, fill_color, boundary_color):
+    stack = [[x,y]]
+    while len(stack)>0:
+        pq = stack.pop()
+        pixel_color = get_pixel_color(canvas, pq[0], pq[1])
+
+        if pixel_color != fill_color and pixel_color != boundary_color:
+            fill_pixel(canvas, pq[0], pq[1], fill_color)
+            stack.append([pq[0],pq[1]-1])
+            stack.append([pq[0]-1,pq[1]-1])
+            stack.append([pq[0]-1,pq[1]])
+            stack.append([pq[0]-1,pq[1]+1])
+            stack.append([pq[0],pq[1]+1])
+            stack.append([pq[0]+1,pq[1]+1])
+            stack.append([pq[0]+1,pq[1]-1])
+            stack.append([pq[0]+1,pq[1]])
+

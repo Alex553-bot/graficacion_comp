@@ -79,8 +79,11 @@ def options_circle():
         objetos.append(obj)
         dibujarCirculo(canv, obj.puntos_clave, obj.rad, obj.grosor, obj.segmentado, obj.color)
 
-def recargar():
+def limpiar():
     canv.delete('all')
+
+def recargar():
+    limpiar()
     for x in objetos:
         repaint(x)
 
@@ -94,8 +97,13 @@ def traslate():
         aux.top_level.wait_window()
         if len(capt)>0:
             ap = search(capt[-1])
-            ap.puntos_clave = translation(ap.puntos_clave, capt[0], capt[1])
-            recargar()
+            if ap.relleno=='#ffffff':
+                dibujarCuadrado(canv, ap.puntos_clave, ap.grosor, ap.segmentado, '#ffffff')
+                ap.puntos_clave = translation(ap.puntos_clave, capt[0], capt[1])
+                dibujarCuadrado(canv, ap.puntos_clave, ap.grosor, ap.segmentado, ap.color)
+            else:
+                ap.puntos_clave = translation(ap.puntos_clave, capt[0], capt[1])
+                recargar()
 
 def rotate():
     if len(objetos)>0:
@@ -158,7 +166,7 @@ menus = tk.Menu()
 menuArchive = tk.Menu(menus, tearoff = False)
 menuArchive.add_command(
     label = "Nuevo",
-    # command=
+    command=limpiar
 )
 menuArchive.add_command(
     label = "Guardar",
