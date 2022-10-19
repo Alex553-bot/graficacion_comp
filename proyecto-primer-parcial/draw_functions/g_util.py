@@ -1,6 +1,6 @@
 from tkinter import Canvas
 
-def draw_pixel(canvas:Canvas, x, y, grosor=1, col = '#12ab36'):
+def draw_pixel(canvas:Canvas, x, y, grosor=1, col = '#ffffff'):
     canvas.create_rectangle(int(x), int(y), int(x+grosor), int(y+grosor), fill=col, outline=col)
 
 

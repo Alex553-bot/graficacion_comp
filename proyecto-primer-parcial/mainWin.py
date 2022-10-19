@@ -51,10 +51,11 @@ def options_square():
             pts_clave=psqr, 
             segm=capt[4][2], 
             gr=capt[4][0], 
-            col=capt[4][1]
+            col='#000000',
+            rel=capt[4][1]
         )
         objetos.append(obj)
-        dibujarCuadrado(canv, psqr, obj.grosor, obj.segmentado, obj.color)
+        repaint(obj)
         
 
 def options_triangle():
@@ -64,10 +65,16 @@ def options_triangle():
     if len(capt)>0:
         p1, p2, p3 = (capt[0], capt[1]), (capt[2], capt[3]), (capt[4], capt[5])
         psqr = [p1, p2, p3]
-        obj = Objeto(3,psqr, capt[6][2], capt[6][0], capt[6][1])
+        obj = Objeto(
+            3,
+            psqr, 
+            capt[6][2], 
+            capt[6][0], 
+            col='#000000',
+            rel=capt[6][1]
+        )
         objetos.append(obj)
-        dibujarTriangulo(canv, psqr, g=obj.grosor, segm=obj.segmentado,col= obj.color)
-
+        repaint(obj)
 def options_circle():
     capt = []
     aux = crp.popup_cro(capt,winMain)
@@ -75,7 +82,15 @@ def options_circle():
     if len(capt)!=0:
         xc,yc = capt[0],capt[1]
         r = capt[2]
-        obj = Objeto(2, [(xc, yc)], capt[3][2], capt[3][0], capt[3][1], r)
+        obj = Objeto(
+            2, 
+            [(xc, yc)], 
+            capt[3][2], 
+            capt[3][0], 
+            col = '#000000',
+            rel = capt[3][1], 
+            r=r
+        )
         objetos.append(obj)
         dibujarCirculo(canv, obj.puntos_clave, obj.rad, obj.grosor, obj.segmentado, obj.color)
 
@@ -141,12 +156,11 @@ def scale():
 def repaint(x:Objeto):
     if x.id==1:
         dibujarCuadrado(canv, x.puntos_clave, x.grosor, x.segmentado, x.color)  
-        boundary_fill_8(canv, x.pto_medio()[0], x.pto_medio()[1], x.relleno, x.color)          
     elif x.id==2:
         dibujarCirculo(canv, x.puntos_clave, x.rad, x.grosor, x.segmentado, x.color)
-        boundary_fill_8(canv, x.pto_medio()[0], x.pto_medio()[1], x.relleno, x.color)
     else :
         dibujarTriangulo(canv, x.puntos_clave, x.grosor, x.segmentado, x.color)
+    if x.relleno!='#ffffff':
         boundary_fill_8(canv, x.pto_medio()[0], x.pto_medio()[1], x.relleno, x.color)
 
 
