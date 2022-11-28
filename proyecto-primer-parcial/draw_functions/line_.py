@@ -115,7 +115,7 @@ def create_segmented_line(canvas:Canvas,x:int, y:int, x1:int, y1:int, g:int,numb
     for s in range(number_of_seg): 
 
         create_line_(canvas,_x, _y, ((dist - segm/2)*n_x) + x, ((dist - segm/2)*n_y) + y, g,col)
-        create_line_(canvas,_x, _y, ((dist - segm/2)*n_x) + x, ((dist - segm/2)*n_y) + y, g,col)
+        #create_line_(canvas,_x, _y, ((dist - segm/2)*n_x) + x, ((dist - segm/2)*n_y) + y, g,col)
         _x, _y = ((dist + segm/2)*n_x) + x, ((dist + segm/2)*n_y) + y
         dist += seg
 

@@ -92,8 +92,7 @@ def options_circle():
             r=r
         )
         objetos.append(obj)
-        dibujarCirculo(canv, obj.puntos_clave, obj.rad, obj.grosor, obj.segmentado, obj.color)
-
+        repaint(obj)
 def limpiar():
     canv.delete('all')
 
@@ -201,7 +200,23 @@ menuArchive.add_command(
 menuArchive.add_separator()
 menuArchive.add_command(label = "Salir", command = winMain.destroy)
 
-menuOptions = tk.Menu(menus, tearoff = False)
+menuStudents = tk.Menu(menus, tearoff = False)
+menuStudents.add_command(
+    label = 'Alexander Alvarez',
+    state = tk.DISABLED
+)
+menuStudents.add_command(
+    label = 'Odalis Garcia Vino',
+    state = tk.DISABLED
+)
+menuStudents.add_command(
+    label = 'Leonel Julio Gongora Angles',
+    state = tk.DISABLED
+)
+menuStudents.add_command(
+    label = 'William Calle Pinto',
+    state = tk.DISABLED
+)
 
 transfOptions = tk.Menu(menus, tearoff=False)
 transfOptions.add_command(
@@ -218,7 +233,7 @@ transfOptions.add_command(
 )
 
 menus.add_cascade(menu = menuArchive, label = "Archivo")
-menus.add_cascade(menu = menuOptions, label = "Opciones")
+menus.add_cascade(menu = menuStudents, label = "Integrantes")
 menus.add_cascade(menu = transfOptions, label='Transformaciones')
 
 winMain.config(menu = menus)
