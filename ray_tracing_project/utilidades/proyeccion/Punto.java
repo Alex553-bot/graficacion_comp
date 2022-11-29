@@ -1,4 +1,6 @@
-package utilidad.proyeccion;
+package utilidades.proyeccion;
+
+import utilidades.geometria.Vector;
 
 public class Punto 
 {
@@ -21,6 +23,35 @@ public class Punto
 		y += f.getY();
 		z += f.getZ();
 	}
+
+	public Punto sumar(Punto a) {
+		Punto p = new Punto();
+		
+		p.setX(a.getX()+x);
+		p.setY(a.getY()+y);
+		p.setZ(a.getZ()+z);
+
+		return p;
+	}
+
+	public Punto restar(Punto o) {
+		return new Punto(
+			x-o.getX(), 
+			y-o.getY(),
+			z-o.getZ()
+		);
+	}
+
+	public double prPunto(Punto f) {
+		return (
+			getX()*f.getX() + 
+			getY()*f.getY() + 
+			getZ()*f.getZ());
+	}
+
+	public void setX(double x) {this.x = x;}
+	public void setY(double x) {this.y = x;}
+	public void setZ(double x) {this.z = x;}
 
 	public double getX() {return x;}
 	public double getY() {return y;}
