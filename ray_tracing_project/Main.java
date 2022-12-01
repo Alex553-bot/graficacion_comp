@@ -9,45 +9,70 @@ import rendering.*;
 
 public class Main 
 {
+
+	private static Escena escena;
+	private static Image image;
+
 	public static void main(String[] args) {
 		long timeInicio = System.nanoTime();
+		int width, height;
+		width =  680;
+		height = 480;
 
-		int height = 680, width = 480;
-		File image = new File("Image.png");
+		Random random = new Random();
 
-		Random r = new Random();
+		escena = new Escena(width, height, 1);
+		image = new Image("Image.png", width, height);
 
-		BufferedImage buffer = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-		
+
 		Punto c = new Punto(0,0,0);
 		Esfera esfera = new Esfera(c, 60, new Color(1.0F,0.0F,0.0F));
 
+		double k=0.5;
 
 		for (int i=0; i<height; i++) {
 			for (int j = 0; j<width; j++) {
 				//buffer.setRGB(j, i, r.nextInt()); // parte del rendering
-				double x = j-width/2+.5;
-				double y = i-height/2+.5;
-				double z = 100;
-				Punto a = new Punto(x, y, z);
-				Vector_Luz luz = new Vector_Luz(
-							a, new Vector(new Punto(0,0,-50)));
-				if(esfera.hitRay(luz)!=0) {
-					buffer.setRGB(j, i, esfera.getColor().toInt());
-				} else {
-					buffer.setRGB(j, i, 0);
-				}
+				
+				trace(j, i, k);
+
+				//colorn.dividir(64);
+				//image.setPixel(j, i, colorn.toInt());
+
 			}
 		}
 
-		try {
-			ImageIO.write(buffer, "PNG", image);
-		} catch(Exception e) {
-
-			System.out.println("Error with image");
-		}
-
+		image.cerrar("PNG");
+		
 		long timeEnd = System.nanoTime();
 		System.out.println((timeEnd-timeInicio)/1000000000.0F);
+	}
+
+	private static void trace(int i, int j, double k) {
+		Color color = new Color(0,0,0);
+		double min = Double.MAX_VALUE;
+
+		if (escena==null) {
+			System.out.println("escena nula");
+			System.exit(0);
+		}
+
+		int w = escena.getViewPlane().getWidth();
+		int h = escena.getViewPlane().getHeight();
+
+		double x = i-w/2+0.5;
+		double y = j - w/2 + .5;
+
+		Vector_Luz luz = new Vector_Luz(new Punto(x, y, 70), new Vector(new Punto(0,0,-1)));
+
+		for (ObjetoEspacial o: escena.getObjs()) {
+
+			if (o.hitRay(luz)!=0 && o.hitRay(luz)<min) {
+				color = o.getColor();
+			}
+
+		}
+		image.setPixel(i, j, color.toInt());
+
 	}
 }

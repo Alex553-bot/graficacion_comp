@@ -12,6 +12,7 @@ public class Plano extends ObjetoEspacial
     public Plano(Punto p, Vector normal, Color color) {
         this.p=p;
         this.normal = normal;
+        this.color = color;
     }
 
     public double hitRay(Vector_Luz luz) {

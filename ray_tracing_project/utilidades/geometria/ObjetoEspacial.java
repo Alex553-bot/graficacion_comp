@@ -9,4 +9,7 @@ public abstract class ObjetoEspacial
     protected double k_emision;
     protected double reflexivity;
     public abstract double hitRay(Vector_Luz v);
+    public Color getColor() {
+        return color;
+    };
 }

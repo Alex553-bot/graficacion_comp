@@ -27,5 +27,4 @@ public class Esfera extends ObjetoEspacial
 		return 0.0;
 	}
 
-	public Color getColor() {return color;}
 }
