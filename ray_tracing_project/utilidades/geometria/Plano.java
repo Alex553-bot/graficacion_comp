@@ -4,26 +4,29 @@ import utilidades.proyeccion.*;
 
 public class Plano extends ObjetoEspacial
 {
-    private Punto p;
     private Vector normal;
 
-    private final double LIM = 10e-9;
-
-    public Plano(Punto p, Vector normal, Color color) {
-        this.p=p;
-        this.normal = normal;
+    public Plano(float h, Color color, float rf, float em) {
+        super(new Vector(0,h,0), color, rf, em);
+        normal = new Vector(new Punto(0,1,0));
         this.color = color;
     }
 
-    public double hitRay(Vector_Luz luz) {
-        // en este apartado debe entrar como golpea el rayo 
-        // (plano - a)*n = 0
-        double t = p.restar(luz.getOrigen()).prPunto(normal.getFin())/(luz.getDireccion().prPunto(normal));
+    public Vector calcInter(Vector_Luz rayo) {
+        Vector res = null;
+        float t = -(rayo.getFin().getY()-pto.getY()) / rayo.getDireccion().getY();
+        if (t>0 && Float.isFinite(t)) {
+            res = Vector.toVector(rayo.getFin()).sumar(rayo.getDireccion().multiplicar_k(t));
+        }
+        return res;
+    }
 
-        if (t<=LIM) {
-            t = 0;
-        } 
+    public Vector getNormalAt() {
+        return normal;
+    }
 
-        return t;
+    @Override
+    public Color getColor(Vector p) {
+        return Color.YELLOW;
     }
 }

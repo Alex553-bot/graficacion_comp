@@ -41,13 +41,26 @@ public class Vector
 		return new Vector(resultante);
 	}
 
-	public void normalizar() {
-		double dist = 0;
-		dist = Math.sqrt(prPunto(this));
+	public double longitud() {
+		return Math.sqrt(this.prPunto(this));
+	}
 
-		fin.setX(fin.getX()/dist);
-		fin.setY(fin.getY()/dist);
-		fin.setZ(fin.getZ()/dist);
+	public void multiplicar_k(double k) {
+		fin.setX(fin.getX()*k);
+		fin.setY(fin.getY()*k);
+		fin.setZ(fin.getZ()*k);
+	}
+
+	public Vector normalizar() {
+		double dist = 0;
+		dist = longitud();
+		double x,y,z;
+
+		x = (fin.getX()/dist);
+		y = (fin.getY()/dist);
+		z = (fin.getZ()/dist);
+
+		return new Vector(new Punto(x, y, z));
 	}
 
 	public Vector sumar(Vector v) {
@@ -57,10 +70,13 @@ public class Vector
 	}
 
 	public Vector restar(Vector v) {
-		return new Vector(
+		return Vector.toVector(
 			fin.restar(v.getFin())
 		);
 	}
 	
 	public Punto getFin() {return fin;} 
+	public static Vector toVector(Punto p) {
+		return new Vector(p);
+	}
 }

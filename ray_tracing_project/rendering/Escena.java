@@ -7,9 +7,10 @@ import utilidades.geometria.*;
 
 public class Escena
 {
-	private ViewPlane viewPlane;
-	private ArrayList<ObjetoEspacial> objetos;
-	private Color bg;
+	private Camara	camara;
+	private Vector_Luz luz;
+	private ArrayList<Objeto> objetos;
+	private ViewPlane espacioMatricial;
 
 	public Escena(int w, int h, double s) {
 		viewPlane = new ViewPlane(w, h, s);
