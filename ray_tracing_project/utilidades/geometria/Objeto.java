@@ -15,13 +15,18 @@ public abstract class Objeto
 		k_emision = k;
 		reflexivity = r;
 	}
+	public Objeto(Color c, float r, float k) {
+		color =c ;
+		k_emision = k;
+		reflexivity = r;
+		pto = new Punto();
+	}
 
-	public abstract double hitRay();
 	public abstract Vector getNormalAt(Punto p);
 	public abstract Vector calcInter(Vector_Luz rayo);
 
 	public Color getColor() {return color;}
 	public Color getColor(Vector v) {return getColor();}
-	public float getReflectivity() {return reflexivity;}
-	public float getEmssion() {return k_emision;}	
+	public float getReflectivity() {return (float)reflexivity;}
+	public float getEmssion() {return (float)k_emision;}	
 }

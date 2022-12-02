@@ -1,5 +1,8 @@
 package utilidades.proyeccion;
 
+import java.util.List;
+import java.util.Iterator;
+
 public class Color
 {
     public static final Color BLACK   = new Color(0,0,0);
@@ -24,6 +27,11 @@ public class Color
         b+=c.getB();
     }
 
+    public Color multiplicar(float b) {
+        b = Math.min(1, b);
+        return new Color(r*b, g*b, b*this.b);
+    }
+
     public float getLuminicencia() {
         float a;
         a = r*0.2126F;
@@ -36,7 +44,7 @@ public class Color
         g/=k;
         b/=k;        
     }
-    public void agregarB(float brillo) {
+    public Color agregarB(float brillo) {
         float re, gr, bl;
         re = Math.min(1, r+brillo);
         gr = Math.min(1, g+brillo);
@@ -45,7 +53,7 @@ public class Color
     }
 
     public static Color promedio(List<Color> colores) {
-        double rs, gs, bs;
+        float rs, gs, bs;
         int n = colores.size();
         rs = gs = bs = 0;
         for (Color ac: colores) {
@@ -58,7 +66,7 @@ public class Color
 
     public static Color promedio(List<Color> colores, List<Float> pesos) {
         if (colores.size()!=pesos.size()) return Color.BLACK;
-        double rs, gs, bs;
+        float rs, gs, bs;
         int n = colores.size();
         rs = gs = bs = 0;
         Iterator<Float> it = pesos.iterator();

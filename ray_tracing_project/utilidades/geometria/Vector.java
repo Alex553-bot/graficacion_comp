@@ -45,10 +45,11 @@ public class Vector
 		return Math.sqrt(this.prPunto(this));
 	}
 
-	public void multiplicar_k(double k) {
-		fin.setX(fin.getX()*k);
-		fin.setY(fin.getY()*k);
-		fin.setZ(fin.getZ()*k);
+	public Vector multiplicar_k(double k) {
+		double X = (fin.getX()*k);
+		double Y = (fin.getY()*k);
+		double Z = (fin.getZ()*k);
+		return new Vector(new Punto(X, Y, Z));
 	}
 
 	public Vector normalizar() {

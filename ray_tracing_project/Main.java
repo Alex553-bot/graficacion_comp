@@ -26,7 +26,7 @@ public class Main
 
 
 		Punto c = new Punto(0,0,0);
-		Esfera esfera = new Esfera(c, 60, new Color(1.0F,0.0F,0.0F));
+		Esfera esfera = new Esfera(c, 60, new Color(1.0F,0.0F,0.0F), 0.5F, 0.1F);
 
 		double k=0.5;
 
@@ -65,11 +65,11 @@ public class Main
 
 		Vector_Luz luz = new Vector_Luz(new Punto(x, y, 70), new Vector(new Punto(0,0,-1)));
 
-		for (ObjetoEspacial o: escena.getObjs()) {
+		for (Objeto o: escena.getObjs()) {
 
-			if (o.hitRay(luz)!=0 && o.hitRay(luz)<min) {
-				color = o.getColor();
-			}
+			//if (o.hitRay(luz)!=0 && o.hitRay(luz)<min) {
+			//	color = o.getColor();
+			//}
 
 		}
 		image.setPixel(i, j, color.toInt());
