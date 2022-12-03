@@ -1,6 +1,7 @@
 package rendering;
 
 import utilidades.proyeccion.*;
+import utilidades.geometria.*;;
 
 // falta mejorar rendimiento.
 public class ViewPlane
@@ -24,6 +25,7 @@ public class ViewPlane
 	public Pixel getPixelBit(int i, int j) {
 		return bitmap[i][j];
 	}
+
 
 	public void sobreponer(ViewPlane vw) {
 		for (int i=0; i<bitmap.length; i++) {
