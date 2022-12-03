@@ -26,6 +26,17 @@ public class ViewPlane
 		return bitmap[i][j];
 	}
 
+	public void filtradoDeEmision(float emision) {
+		for (int i=0; i<bitmap.length; i++) {
+			for (int j=0; j<bitmap[0].length; j++) {
+				Pixel aux = bitmap[i][j];
+				if (aux!=null && aux.getEmision()<emision) {
+					Color colMin = Color.BLACK;
+					bitmap[i][j] = new Pixel(colMin, aux.getProf(), aux.getEmision());
+				}
+			}
+		}
+	}
 
 	public void sobreponer(ViewPlane vw) {
 		for (int i=0; i<bitmap.length; i++) {

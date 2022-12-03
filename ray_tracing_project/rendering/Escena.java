@@ -12,16 +12,34 @@ public class Escena
 	private ArrayList<Objeto> objetos;
 	private ViewPlane viewPlane;
 
+	// podemos agregar directamente sobre el main. 
 	public Escena(int w, int h, double s) {
 		viewPlane = new ViewPlane(w, h, s);
-
+		camara = new Camara();
+		// este es el vector mas importante.
+		// por medio de este ocurre todo el ray tracing.
+		luz = new Vector_Luz(new Punto(0,0,0), new Vector(new Punto(0,2,12)));
 		objetos = new ArrayList<>();
-		objetos.add(new Esfera(new Punto(0,0,0),50,new Color(1.0F,0.0F,0.0F), 0.5F, 0.2F));
-		objetos.add(new Esfera(new Punto(-200,0,0),50,new Color(0.0F,1.0F,0.0F),0.5F, 0.2F));
-		objetos.add(new Esfera(new Punto(200,0,0),50,new Color(0.0F,0.0F,1.0F),0.5F, 0.2F));
-		objetos.add(new Plano(5,new Color(255f,255f,255f),0.5F, 0.2F));
 	}
 
+	public int ray_tracing(Vector_Luz rayo) {
+		
+/**
+ * en este metodo tendremos que implementar el algoritmo de raytracing donde golpea
+ * a los distintos objetos, y actualiza el color de estos, para lo que es el calculo de intersecciones
+ * ya existen metodo propios que se encuentran implementado dentro del apartado Objeto.java 
+ * que deriva a todos los objetos que pueden estar en la escena.
+ */
+
+		return 0;
+	}
+
+	public void agregarObjeto(Objeto o) {
+		objetos.add(o);
+	}
+
+	public Vector_Luz getRayo() {return luz;}
 	public ViewPlane getViewPlane() {return viewPlane;}
 	public ArrayList<Objeto> getObjs() {return objetos;}
+	public Camara getCamara() {return camara;}
 }
