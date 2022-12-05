@@ -6,16 +6,14 @@ import utilidades.geometria.*;;
 // falta mejorar rendimiento.
 public class ViewPlane
 {
-	private double tam;
 	private int width;
 	private int height;
 	// aqui viene la matriz- parecido a un Bit-Map
 	private Pixel[][] bitmap;
 
-	public ViewPlane(int w, int h, double s) {
+	public ViewPlane(int w, int h) {
 		width = w;
 		height = h;
-		tam = s;
 		bitmap = new Pixel[w][h];
 	}
 

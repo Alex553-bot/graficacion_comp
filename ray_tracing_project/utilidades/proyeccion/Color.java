@@ -64,6 +64,9 @@ public class Color
         }
         return new Color(rs/n, gs/n, bs/n);
     }
+    public java.awt.Color toAwtColor() {
+        return new java.awt.Color(r%1.0f, g%1.0f, b%1.0f);
+    }
 
     public static Color promedio(List<Color> colores, List<Float> pesos) {
         if (colores.size()!=pesos.size()) return Color.BLACK;

@@ -1,5 +1,6 @@
 package rendering;
 
+import java.awt.Graphics;
 
 import utilidades.geometria.*;
 import utilidades.proyeccion.*;
@@ -12,7 +13,7 @@ public class Renderizador
     private final int   MAX_RECURSION = 5;
 
     public ViewPlane renderizarEscena(Escena escena, int w, int h, float resolution) {
-        ViewPlane matrix = new ViewPlane(w, h, 1);
+        ViewPlane matrix = new ViewPlane(w, h);
         for (int i=0; i<w; i++) {
             for (int j = 0; j<h; j++) {
                 float[] aux = normalizarCoordenadas(i, j, w, h);
@@ -36,19 +37,33 @@ public class Renderizador
         return a;
     }
 
+    public void renderScene(Escena scene, Graphics gfx, int width, int height, float resolution) {
+        int blockSize = (int) (1/resolution);
+
+        for (int x = 0; x<width; x+=blockSize) {
+            for (int y = 0; y<height; y+=blockSize) {
+                float[] uv = normalizarCoordenadas(x, y, width, height);
+                Pixel pixelData = computePixelInfo(scene, uv[0], uv[1]);
+
+                gfx.setColor(pixelData.getColor().toAwtColor());
+                gfx.fillRect(x, y, blockSize, blockSize);
+            }
+        }
+    }
+
     public Pixel computePixelInfo(Escena escena, float i, float j) {
         Camara cam = escena.getCamara();
 
-        Vector vector = new Vector(new Punto(0, 0, 
-            (float)(-1/Math.tan(Math.toRadians(
+        Vector vector = new Vector(0,
+                                 0, 
+                                 (float)(-1/Math.tan(Math.toRadians(
                         cam.getRV()/2
-                    )))));
-        Vector dirRay = new Vector(new Punto(i, j, 0)).restar(vector).normalizar().rotarYP(cam.getYP(), cam.getP());
+                    ))));
+        Vector dirRay = new Vector(i, j, 0).restar(vector).normalizar().rotarYP(cam.getYP(), cam.getP());
         
         
         RayoG golpe = escena.raycast(new Vector_Luz(
-                    vector.sumar(Vector.toVector(cam.getPosicion())).getFin(), 
-                    dirRay));
+                    vector.sumar(cam.getPosicion()), dirRay));
         
         
         if (golpe != null) {
@@ -59,11 +74,11 @@ public class Renderizador
     }
 
     public Pixel computePixelInfoAHit(Escena escena, RayoG golpe, int recursion) {
-        Vector origen = Vector.toVector(golpe.getPosicion());
+        Vector origen = golpe.getPosicion();
         Vector dirL = golpe.getRayo().getDireccion();
 
         Objeto obj = golpe.getObjeto();
-        Color colorG = obj.getTextureColor(origen.restar(Vector.toVector(obj.getPos())));
+        Color colorG = obj.getTextureColor(origen.restar(obj.getPos()));
         float lumin = getLuzDifusa(escena, golpe);
         float luzEsp = getLuzEspecular(escena, golpe);
         float refle = obj.getReflectivity();
@@ -75,7 +90,10 @@ public class Renderizador
         ));
 
         Vector resulLuO = origen.sumar(resulRefl.multiplicar_k(0.001f));
-        RayoG golpeR = recursion>0? escena.raycast(new Vector_Luz(resulLuO.getFin(),resulRefl)):null;
+        RayoG golpeR = recursion>0? 
+                    escena.raycast(new Vector_Luz(resulLuO,resulRefl))
+                    : null;
+        
         if (golpeR!=null) {
             pixel = computePixelInfoAHit(escena, golpeR, recursion-1);
         } else {
@@ -92,14 +110,14 @@ public class Renderizador
 
         return new Pixel(pixelC, 
                         Vector.dist(
-                            Vector.toVector(escena.getCamara().getPosicion()), origen), 
+                            escena.getCamara().getPosicion(), origen), 
                         Math.min(1, emision+pixel.getEmision()*refle+luzEsp));
     }
 
     public float getLuzEspecular(Escena escena, RayoG golp) {
-        Vector origen = Vector.toVector(golp.getPosicion());
-        Vector dirCam = Vector.toVector(escena.getCamara().getPosicion()).restar(origen).normalizar();
-        Vector dirLuz = origen.restar(Vector.toVector(escena.getRayo().getOrigen())).normalizar();
+        Vector origen = golp.getPosicion();
+        Vector dirCam = escena.getCamara().getPosicion().restar(origen).normalizar();
+        Vector dirLuz = origen.restar(escena.getRayo().getOrigen()).normalizar();
         Vector vlref = dirLuz.restar(golp.getNormal().multiplicar_k(2*dirLuz.prPunto(golp.getNormal())));
 
         float factEsp = (float)Math.max(0, Math.min(1, vlref.prPunto(dirCam)));
@@ -112,14 +130,14 @@ public class Renderizador
         Vector_Luz luz = escena.getRayo();
 
         RayoG luzBl = escena.raycast(new Vector_Luz(luz.getOrigen(), 
-                                Vector.toVector(golpe.getPosicion()).restar(Vector.toVector(golpe.getPosicion()))));
+                                golpe.getPosicion().restar(golpe.getPosicion())));
 
         if (luzBl!=null && luzBl.getObjeto()!=golpe.getObjeto()) 
             return GLOBAL_ILUMINATION;
         return (float)Math.max(GLOBAL_ILUMINATION, 
                 Math.min(1, 
                     golpe.getNormal().prPunto(escena.getRayo().getDireccion().restar(
-                            Vector.toVector(golpe.getPosicion())
-                    ))));
+                            golpe.getPosicion())
+                    )));
     }
 }

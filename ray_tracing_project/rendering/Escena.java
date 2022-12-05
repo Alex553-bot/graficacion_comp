@@ -10,15 +10,13 @@ public class Escena
 	private Camara	camara;
 	private Vector_Luz luz;
 	private ArrayList<Objeto> objetos;
-	private ViewPlane viewPlane;
 
 	// podemos agregar directamente sobre el main. 
-	public Escena(int w, int h, double s) {
-		viewPlane = new ViewPlane(w, h, s);
+	public Escena(int w, int h) {
 		camara = new Camara();
 		// este es el vector mas importante.
 		// por medio de este ocurre todo el ray tracing.
-		luz = new Vector_Luz(new Punto(0,0,0), new Vector(new Punto(0,2,12)));
+		luz = new Vector_Luz(new Vector(0,0,0), new Vector(0,2,12));
 		objetos = new ArrayList<>();
 	}
 
@@ -36,10 +34,10 @@ public class Escena
 			if (obj!=null) {
 				Vector v = obj.calcInter(rayo);
 				if (v!=null && 
-						(golpe==null || Vector.dist(Vector.toVector(v.getFin()), Vector.toVector(rayo.getOrigen()))>
-									Vector.dist(v, Vector.toVector(rayo.getOrigen()))))
+						(golpe==null || Vector.dist((v), (rayo.getOrigen()))>
+									Vector.dist(v, (rayo.getOrigen()))))
 				{
-					golpe = new RayoG(rayo, obj, v.getFin());
+					golpe = new RayoG(rayo, obj, v);
 				}
 			}
 		}
@@ -52,7 +50,6 @@ public class Escena
 	}
 
 	public Vector_Luz getRayo() {return luz;}
-	public ViewPlane getViewPlane() {return viewPlane;}
 	public ArrayList<Objeto> getObjs() {return objetos;}
 	public Camara getCamara() {return camara;}
 }

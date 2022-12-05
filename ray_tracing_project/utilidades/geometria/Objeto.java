@@ -6,10 +6,10 @@ public abstract class Objeto
 {
 	protected Color 	color;
 	protected double 	reflexivity;
-	protected Punto 	pto;
+	protected Vector 	pto;
 	protected double 	k_emision;
 
-	public Objeto(Punto posicion, Color c, float r, float k) {
+	public Objeto(Vector posicion, Color c, float r, float k) {
 		color = c;
 		pto = posicion;
 		k_emision = k;
@@ -19,17 +19,17 @@ public abstract class Objeto
 		color =c ;
 		k_emision = k;
 		reflexivity = r;
-		pto = new Punto();
+		pto = new Vector();
 	}
 	public Color getTextureColor(Vector p) {
         return getColor();
     }
 
-	public abstract Vector getNormalAt(Punto p);
+	public abstract Vector getNormalAt(Vector p);
 	public abstract Vector calcInter(Vector_Luz rayo);
 	
 
-	public Punto getPos() {return pto;}
+	public Vector getPos() {return pto;}
 	public Color getColor() {return color;}
 	public Color getColor(Vector v) {return getColor();}
 	public float getReflectivity() {return (float)reflexivity;}
