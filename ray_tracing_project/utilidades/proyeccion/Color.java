@@ -21,10 +21,11 @@ public class Color
         r = x; g = y; b = z;
     }
 
-    public void add(Color c) {
+    public Color sumar(Color c) {
         r+=c.getR();
         g+=c.getG();
         b+=c.getB();
+        return this;
     }
 
     public Color multiplicar(float b) {
@@ -44,7 +45,7 @@ public class Color
         g/=k;
         b/=k;        
     }
-    public Color agregarB(float brillo) {
+    public Color sumar(float brillo) {
         float re, gr, bl;
         re = Math.min(1, r+brillo);
         gr = Math.min(1, g+brillo);
@@ -86,6 +87,16 @@ public class Color
         green = ((x>>8)&0xF)/255F;
         blue = (x>>16)/255F;
         return new Color(red, green, blue);
+    }
+
+    private static float lerp(float a, float b, float t) {
+        return a + t * (b - a);
+    }
+
+    public static Color lerp(Color a, Color b, float t) {
+        return new Color(lerp(a.getR(), b.getR(), t), 
+                         lerp(a.getG(), b.getG(), t), 
+                         lerp(a.getB(), b.getB(), t));
     }
     
     public int toInt() {

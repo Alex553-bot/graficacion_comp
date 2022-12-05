@@ -22,7 +22,7 @@ public class Escena
 		objetos = new ArrayList<>();
 	}
 
-	public int ray_tracing(Vector_Luz rayo) {
+	public RayoG raycast(Vector_Luz rayo) {
 		
 /**
  * en este metodo tendremos que implementar el algoritmo de raytracing donde golpea
@@ -30,8 +30,21 @@ public class Escena
  * ya existen metodo propios que se encuentran implementado dentro del apartado Objeto.java 
  * que deriva a todos los objetos que pueden estar en la escena.
  */
+		RayoG golpe = null;
 
-		return 0;
+		for(Objeto obj: objetos) {
+			if (obj!=null) {
+				Vector v = obj.calcInter(rayo);
+				if (v!=null && 
+						(golpe==null || Vector.dist(Vector.toVector(v.getFin()), Vector.toVector(rayo.getOrigen()))>
+									Vector.dist(v, Vector.toVector(rayo.getOrigen()))))
+				{
+					golpe = new RayoG(rayo, obj, v.getFin());
+				}
+			}
+		}
+
+		return golpe;
 	}
 
 	public void agregarObjeto(Objeto o) {

@@ -21,10 +21,15 @@ public abstract class Objeto
 		reflexivity = r;
 		pto = new Punto();
 	}
+	public Color getTextureColor(Vector p) {
+        return getColor();
+    }
 
 	public abstract Vector getNormalAt(Punto p);
 	public abstract Vector calcInter(Vector_Luz rayo);
+	
 
+	public Punto getPos() {return pto;}
 	public Color getColor() {return color;}
 	public Color getColor(Vector v) {return getColor();}
 	public float getReflectivity() {return (float)reflexivity;}

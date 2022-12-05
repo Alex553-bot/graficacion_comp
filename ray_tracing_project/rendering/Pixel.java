@@ -16,7 +16,7 @@ public class Pixel {
     public float getEmision() {return emision;}
 
     public void sumar(Pixel otro) {
-        color.add(otro.getColor());
+        color.sumar(otro.getColor());
         profundidad = (profundidad+otro.getProf())/2F;
         emision = (emision+otro.getEmision());
     }

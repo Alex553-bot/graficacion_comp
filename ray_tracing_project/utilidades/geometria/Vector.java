@@ -70,6 +70,22 @@ public class Vector
 		return r;
 	}
 
+	public Vector rotarYP(float yaw, float pitch) {
+        // Convert to radians
+        double yawRads = Math.toRadians(yaw);
+        double pitchRads = Math.toRadians(pitch);
+
+        // Step one: Rotate around X axis (pitch)
+        float _y = (float) (fin.getY()*Math.cos(pitchRads) - fin.getZ()*Math.sin(pitchRads));
+        float _z = (float) (fin.getY()*Math.sin(pitchRads) + fin.getZ()*Math.cos(pitchRads));
+
+        // Step two: Rotate around the Y axis (yaw)
+        float _x = (float) (fin.getX()*Math.cos(yawRads) + _z*Math.sin(yawRads));
+        _z = (float) (-fin.getX()*Math.sin(yawRads) + _z*Math.cos(yawRads));
+
+        return new Vector(new Punto(_x, _y, _z));
+    }
+
 	public Vector restar(Vector v) {
 		return Vector.toVector(
 			fin.restar(v.getFin())
@@ -79,5 +95,10 @@ public class Vector
 	public Punto getFin() {return fin;} 
 	public static Vector toVector(Punto p) {
 		return new Vector(p);
+	}
+	public static float dist(Vector a, Vector b) {
+		return (float)Math.sqrt(Math.pow(a.getFin().getX()-b.getFin().getX(), 2)
+						+ Math.pow(a.getFin().getY()-b.getFin().getY(), 2)
+						+ Math.pow(a.getFin().getZ()-b.getFin().getZ(), 2));
 	}
 }
