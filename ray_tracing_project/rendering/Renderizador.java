@@ -12,13 +12,14 @@ public class Renderizador
     private final float GLOBAL_ILUMINATION = 0.3f;
     private final int   MAX_RECURSION = 5;
 
-    public ViewPlane renderizarEscena(Escena escena, int w, int h, float resolution) {
+    public ViewPlane renderizarEscena(Escena escena, int w, int h) {
         ViewPlane matrix = new ViewPlane(w, h);
         for (int i=0; i<w; i++) {
             for (int j = 0; j<h; j++) {
                 float[] aux = normalizarCoordenadas(i, j, w, h);
+                Pixel pixel = calcularColorPixel(escena, aux[0], aux[1]);
 
-                matrix.setPixelBit(i, j, computePixelInfo(escena, aux[0], aux[1]));
+                matrix.setPixelBit(i, j, pixel);
             }
         }
         return matrix;
@@ -37,21 +38,19 @@ public class Renderizador
         return a;
     }
 
-    public void renderScene(Escena scene, Graphics gfx, int width, int height, float resolution) {
-        int blockSize = (int) (1/resolution);
-
-        for (int x = 0; x<width; x+=blockSize) {
-            for (int y = 0; y<height; y+=blockSize) {
-                float[] uv = normalizarCoordenadas(x, y, width, height);
-                Pixel pixelData = computePixelInfo(scene, uv[0], uv[1]);
+    public void renderizarEscena(Escena escena, Graphics gfx, int w, int h) {
+        for (int x = 0; x<w; x++) {
+            for (int y = 0; y<h; y++) {
+                float[] uv = normalizarCoordenadas(x, y, w, h);
+                Pixel pixelData = calcularColorPixel(escena, uv[0], uv[1]);
 
                 gfx.setColor(pixelData.getColor().toAwtColor());
-                gfx.fillRect(x, y, blockSize, blockSize);
+                gfx.fillRect(x, y, 1, 1);
             }
         }
     }
 
-    public Pixel computePixelInfo(Escena escena, float i, float j) {
+    public Pixel calcularColorPixel(Escena escena, float i, float j) {
         Camara cam = escena.getCamara();
 
         Vector vector = new Vector(0,
@@ -59,21 +58,22 @@ public class Renderizador
                                  (float)(-1/Math.tan(Math.toRadians(
                         cam.getRV()/2
                     ))));
-        Vector dirRay = new Vector(i, j, 0).restar(vector).normalizar().rotarYP(cam.getYP(), cam.getP());
+        Vector dirRay = new Vector(i, j, 0)
+                .restar(vector).normalizar()
+                .rotarYP(cam.getYP(), cam.getP());
         
         
         RayoG golpe = escena.raycast(new Vector_Luz(
                     vector.sumar(cam.getPosicion()), dirRay));
         
-        
         if (golpe != null) {
-            return computePixelInfoAHit(escena, golpe, MAX_RECURSION);
-        }else {
+            return calcularChoqueP(escena, golpe, MAX_RECURSION);
+        } else {
             return new Pixel(Color.BLACK, Float.POSITIVE_INFINITY, 0);
         }
     }
 
-    public Pixel computePixelInfoAHit(Escena escena, RayoG golpe, int recursion) {
+    public Pixel calcularChoqueP(Escena escena, RayoG golpe, int recursion) {
         Vector origen = golpe.getPosicion();
         Vector dirL = golpe.getRayo().getDireccion();
 
@@ -89,16 +89,17 @@ public class Renderizador
             2*dirL.prPunto(golpe.getNormal())
         ));
 
-        Vector resulLuO = origen.sumar(resulRefl.multiplicar_k(0.001f));
+        Vector resulLuO = origen.sumar(resulRefl.multiplicar_k(
+                    0.001f));
         RayoG golpeR = recursion>0? 
                     escena.raycast(new Vector_Luz(resulLuO,resulRefl))
                     : null;
         
         if (golpeR!=null) {
-            pixel = computePixelInfoAHit(escena, golpeR, recursion-1);
+            pixel = calcularChoqueP(escena, golpeR, recursion-1);
         } else {
-            Color sbColor = Color.BLACK;
-            pixel = new Pixel(sbColor, Float.POSITIVE_INFINITY, 0);
+            Color sbColor = Color.GRAY;
+            pixel = new Pixel(sbColor, Float.POSITIVE_INFINITY, sbColor.getLuminicencia()*emision);
         }
 
 
@@ -110,19 +111,24 @@ public class Renderizador
 
         return new Pixel(pixelC, 
                         Vector.dist(
-                            escena.getCamara().getPosicion(), origen), 
-                        Math.min(1, emision+pixel.getEmision()*refle+luzEsp));
+                            escena.getCamara().getPosicion(), 
+                            origen), 
+                        Math.min(
+                            1, 
+                            emision+pixel.getEmision()*refle+luzEsp));
     }
 
     public float getLuzEspecular(Escena escena, RayoG golp) {
         Vector origen = golp.getPosicion();
         Vector dirCam = escena.getCamara().getPosicion().restar(origen).normalizar();
         Vector dirLuz = origen.restar(escena.getRayo().getOrigen()).normalizar();
-        Vector vlref = dirLuz.restar(golp.getNormal().multiplicar_k(2*dirLuz.prPunto(golp.getNormal())));
+        Vector vlref = dirLuz.restar(golp.getNormal()
+                .multiplicar_k(2*dirLuz.prPunto(golp.getNormal())));
 
-        float factEsp = (float)Math.max(0, Math.min(1, vlref.prPunto(dirCam)));
+        float factEsp = (float)Math.max(0, 
+                    Math.min(1, vlref.prPunto(dirCam)));
 
-        return (factEsp*factEsp)*golp.getObjeto().getReflectivity();
+        return (float)Math.pow(factEsp, 2)*golp.getObjeto().getReflectivity();
     }
 
 
@@ -136,7 +142,8 @@ public class Renderizador
             return GLOBAL_ILUMINATION;
         return (float)Math.max(GLOBAL_ILUMINATION, 
                 Math.min(1, 
-                    golpe.getNormal().prPunto(escena.getRayo().getDireccion().restar(
+                    golpe.getNormal().prPunto(
+                            luz.getOrigen().restar(
                             golpe.getPosicion())
                     )));
     }

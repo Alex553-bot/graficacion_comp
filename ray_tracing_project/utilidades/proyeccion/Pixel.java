@@ -1,6 +1,4 @@
-package rendering;
-
-import utilidades.proyeccion.*;;
+package utilidades.proyeccion;
 
 public class Pixel {
     private Color color;

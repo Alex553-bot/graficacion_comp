@@ -1,6 +1,7 @@
 package utilidades.geometria;
 
 import utilidades.proyeccion.*;
+import rendering.Vector_Luz;
 
 public abstract class Objeto
 {

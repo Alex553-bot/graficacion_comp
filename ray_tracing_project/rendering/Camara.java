@@ -4,13 +4,12 @@ import utilidades.geometria.Vector;
 
 public class Camara{
     private Vector posicion;
-    private float rangoVision; // limitado por la caja.java
+    private float rangoVision; 
     private float yaw;
     private float pitch;
 
     public Camara() {
-        // por defecto utilizaremos este punto que es la esquina sup-izq
-        posicion = new Vector(0,0,0);
+        posicion = new Vector(0.0f,0.0f,-0.5f);
         rangoVision = 100;
         yaw = 0;
         pitch = 0;

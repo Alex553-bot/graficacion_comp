@@ -1,7 +1,6 @@
 package rendering;
 
 import utilidades.geometria.*;
-import utilidades.proyeccion.*;
 
 public class RayoG
 {

@@ -1,4 +1,4 @@
-package utilidades.proyeccion;
+package rendering;
 
 import utilidades.geometria.*;;
 public class Vector_Luz

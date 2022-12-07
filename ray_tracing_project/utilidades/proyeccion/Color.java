@@ -11,6 +11,9 @@ public class Color
     public static final Color BLUE    = new Color(0,0,1);
     public static final Color GREEN   = new Color(0,1,0);
     public static final Color RED     = new Color(1,0,0);
+    public static final Color GRAY    = new Color((float)105/255,(float)105/255,(float)105/255);
+    public static final Color DARK_GRAY = new Color(0.2F, 0.2F, 0.2F);
+
 
     private float r;
     private float g;
@@ -25,6 +28,10 @@ public class Color
         r+=c.getR();
         g+=c.getG();
         b+=c.getB();
+
+        //r = r%1.0f;
+        //g = g%1.0f;
+        //b = b%1.0f;
         return this;
     }
 
@@ -65,7 +72,10 @@ public class Color
         return new Color(rs/n, gs/n, bs/n);
     }
     public java.awt.Color toAwtColor() {
-        return new java.awt.Color(r%1.0f, g%1.0f, b%1.0f);
+        if (r >1 ) r = 0.99f;
+        if (g >1) g = 0.99f;
+        if (b >1) b= 0.99f;
+        return new java.awt.Color(r, g, b);
     }
 
     public static Color promedio(List<Color> colores, List<Float> pesos) {
@@ -97,9 +107,9 @@ public class Color
     }
 
     public static Color lerp(Color a, Color b, float t) {
-        return new Color(lerp(a.getR(), b.getR(), t), 
-                         lerp(a.getG(), b.getG(), t), 
-                         lerp(a.getB(), b.getB(), t));
+        return new Color(lerp(a.r, b.r, t), 
+                         lerp(a.g, b.g, t), 
+                         lerp(a.b, b.b, t));
     }
     
     public int toInt() {

@@ -1,7 +1,7 @@
-package rendering;
+package utilidades.geometria;
 
-import utilidades.geometria.*;
-import utilidades.proyeccion.*;;
+import utilidades.proyeccion.*;
+import rendering.Vector_Luz;
 
 public class Caja extends Objeto 
 {

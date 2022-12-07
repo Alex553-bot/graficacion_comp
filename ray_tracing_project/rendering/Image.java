@@ -3,6 +3,8 @@ package rendering;
 import java.awt.image.*;
 import java.io.File;
 import javax.imageio.ImageIO;
+
+import utilidades.proyeccion.Color;
 public class Image 
 {
 	private BufferedImage buffer;
@@ -18,8 +20,9 @@ public class Image
 
 
 
-	public void setPixel(int x,int y, int color) {
-		buffer.setRGB(x, y, color);
+	public void setPixel(int x,int y, Color color) {
+		buffer.getGraphics().setColor(color.toAwtColor());
+		buffer.getGraphics().fillRect(x, y, 1, 1);
 	}
 
 	public void cerrar(String tipo) {

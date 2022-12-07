@@ -1,14 +1,9 @@
-package rendering;
+package utilidades.proyeccion;
 
-import utilidades.proyeccion.*;
-import utilidades.geometria.*;;
-
-// falta mejorar rendimiento.
 public class ViewPlane
 {
 	private int width;
 	private int height;
-	// aqui viene la matriz- parecido a un Bit-Map
 	private Pixel[][] bitmap;
 
 	public ViewPlane(int w, int h) {
